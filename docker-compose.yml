@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  php:
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-request}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-request}
+      MYSQL_USER: ${MYSQL_USER:-request}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-request}
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ${PWD}:/var/www/html
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-request}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-request}
+      MYSQL_USER: ${MYSQL_USER:-request}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-request}
+    restart: always
