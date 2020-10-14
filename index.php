@@ -1,4 +1,6 @@
 <?php
+echo "<h2>" . os.getenv("test")  . "</h2>";
+
 
 ?>
 <p>
