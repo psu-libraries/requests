@@ -49,6 +49,7 @@ workflows:
   docker_push:
     jobs:
       - build-and-push:
+          alias: build-sha
           matrix:
             parameters:
               version: [ "$CIRCLE_SHA1" ]
@@ -57,20 +58,10 @@ workflows:
               only:
                 - master
                 - /preview\/.*/
-      - build-and-push:
-          matrix:
-            parameters:
-              version: [ "$CIRCLE_TAG" ]
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-                - /.*/
       - deploy:
           config_env: qa
           requires:
-            - build-and-push
+            - build-sha
           filters:
             branches:
               only:
@@ -78,7 +69,7 @@ workflows:
       - deploy:
           config_env: dev
           requires:
-            - build-and-push
+            - build-sha
           filters:
             branches:
               only:
