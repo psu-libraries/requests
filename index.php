@@ -1,5 +1,5 @@
 <?php
-echo "<h2>" . os.getenv("test")  . "</h2>";
+echo "<h2>" . getenv("test")  . "</h2>";
 
 
 ?>
