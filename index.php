@@ -1,10 +1,15 @@
 <?php
-echo "<h2>" . getenv("test")  . "</h2>";
-
-
+  session_start();
+  $appName = "University Libraries Request System";
+  $arrTabs = [
+    0 => ['title' => 'Home','url' => 'index.php','class' => 'is-active']
+  ];
 ?>
+
+<?php require_once 'pagelayout/templates/header.php'; ?>
+
 <p>
-  This is the home page. Probably need some text for this page.
+  This is the main index page
 </p>
 
-
+<?php require_once 'pagelayout/templates/footer.php';
