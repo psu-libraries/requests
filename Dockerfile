@@ -1,5 +1,14 @@
 FROM php:7.4.11-apache-buster
 
+# Install system dependencies
+RUN apt-get update \
+  && apt-get --no-install-recommends install -y \
+  wget \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY bin/install_composer.sh /usr/local/bin/install_composer.sh
+RUN /usr/local/bin/install_composer.sh
+
 RUN sed -i 's/\:80/:8080/1' /etc/apache2/sites-enabled/000-default.conf
 RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf
 
