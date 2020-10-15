@@ -1,0 +1,75 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.3.0
+
+jobs:
+  build-and-push:
+    parameters:
+      version:
+        type: string
+    executor: docker/docker
+    environment:
+      REGISTRY_HOST: harbor.k8s.libraries.psu.edu
+      REGISTRY_URL: library/requests
+      DOCKER_LOGIN: 'robot$circleci'
+    steps:
+    - setup_remote_docker
+    - checkout
+    - docker/check:
+        registry: $REGISTRY_HOST
+    - docker/build:
+        image: $REGISTRY_URL
+        registry: $REGISTRY_HOST
+        tag: << parameters.version >>
+    - docker/push:
+        registry: $REGISTRY_HOST
+        image: $REGISTRY_URL
+        tag: << parameters.version >>
+  deploy:
+    docker:
+      - image: harbor.k8s.libraries.psu.edu/library/ci-utils:v0.1.6
+    environment:
+      CONFIG_REPO: git@github.com:psu-libraries/requests-config.git
+    parameters:
+      config_env:
+        type: string
+    steps:
+      - add_ssh_keys
+      - run:
+          name: "Updating Config Repo"
+          command: |
+            export CONFIG_ENV=<< parameters.config_env >>
+            ssh-keyscan github.com > ~/.ssh/known_hosts
+            git clone $CONFIG_REPO
+            cd requests-config
+            ./generate_application.sh
+
+workflows:
+  docker_push:
+    jobs:
+      - build-and-push:
+          matrix:
+            parameters:
+              version: [ "$CIRCLE_SHA1" ]
+          filters:
+            branches:
+              only:
+                - main
+                - /preview\/.*/
+      - deploy:
+          config_env: qa
+          requires:
+            - build-and-push
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          config_env: dev
+          requires:
+            - build-and-push
+          filters:
+            branches:
+              only:
+                - /preview\/.*/
