@@ -26,7 +26,7 @@ COPY composer.json composer.lock /var/www/html/
 RUN chown -R app /var/www/html
 RUN chmod -R 755 /var/www/html
 
-RUN composer install
+RUN composer install --no-dev
 
 COPY --chown=app:www-data . /var/www/html
 
