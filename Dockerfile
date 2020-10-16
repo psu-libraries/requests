@@ -33,5 +33,3 @@ COPY --chown=app:www-data . /var/www/html
 USER app
 
 CMD ["/usr/local/bin/startup"]
-
-
