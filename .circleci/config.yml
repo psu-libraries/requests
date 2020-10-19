@@ -11,20 +11,20 @@ jobs:
     executor: docker/docker
     environment:
       REGISTRY_HOST: harbor.k8s.libraries.psu.edu
-      REGISTRY_URL: library/$CIRCLE_PROJECT_REPONAME
+      REGISTRY_URL: library
       DOCKER_LOGIN: 'robot$circleci'
     steps:
     - setup_remote_docker
     - checkout
     - docker/check:
-        registry: $REGISTRY_HOST
+        registry: $REGISTRY_HOST/$CIRCLE_PROJECT_REPONAME
     - docker/build:
-        image: $REGISTRY_URL
+        image: $REGISTRY_URL/$CIRCLE_PROJECT_REPONAME
         registry: $REGISTRY_HOST
         tag: << parameters.version >>
     - docker/push:
         registry: $REGISTRY_HOST
-        image: $REGISTRY_URL
+        image: $REGISTRY_URL/$CIRCLE_PROJECT_REPONAME
         tag: << parameters.version >>
   deploy:
     docker:
