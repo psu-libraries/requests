@@ -70,15 +70,6 @@ endif;
       <main role="main" id="main-content"
             class="grid-container l-main" tabindex="0">
 <?php
-        define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 
-        define('PAGELAYOUT', ROOT . '/pagelayout');
-        define('SRC', ROOT . '/src');
-        define('VENDOR', ROOT . '/vendor');
-
-        define('TRAVEL', ROOT . '/travel');
-        define('TRLAYOUT', TRAVEL . '/pagelayout');
-        define('TRSRC', TRAVEL . '/src');
-
-        require_once VENDOR . '/autoload.php';
-        require_once SRC . '/functions/fncUtility.php';
+        require_once 'vendor/autoload.php';
+        require_once 'src/functions/fncUtility.php';
