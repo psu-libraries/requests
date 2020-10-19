@@ -44,6 +44,7 @@ jobs:
             git clone $CONFIG_REPO
             cd requests-config
             ./generate_application.sh
+
 workflows:
   docker_push:
     jobs:
