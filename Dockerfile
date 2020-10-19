@@ -4,8 +4,6 @@ FROM php:7.4.11-apache-buster
 RUN apt-get update \
   && apt-get --no-install-recommends install -y \
   wget \
-  libzip-dev \
-  unzip \
   && rm -rf /var/lib/apt/lists/*
 
 COPY bin/install_composer.sh /usr/local/bin/install_composer.sh
@@ -19,19 +17,14 @@ COPY bin/startup /usr/local/bin/
 
 # PHP extensions
 RUN docker-php-ext-install \
-    mysqli \
-    zip
+    mysqli
 
-COPY composer.json composer.lock /var/www/html/
+
 RUN chown -R app /var/www/html
 RUN chmod -R 755 /var/www/html
-
-RUN composer install --no-dev
 
 COPY --chown=app:www-data . /var/www/html
 
 USER app
 
 CMD ["/usr/local/bin/startup"]
-
-

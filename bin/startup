@@ -1,8 +1,8 @@
 #!/bin/bash
-# check for vault secrets and then startup 
+# check for vault secrets and then startup
 
-if [ -f /vault/secrets/config ]; then 
-    . /vault/secrets/config 
+if [ -f /vault/secrets/config ]; then
+    . /vault/secrets/config
 fi
 
 apache2-foreground
