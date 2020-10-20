@@ -11,26 +11,26 @@ jobs:
     executor: docker/docker
     environment:
       REGISTRY_HOST: harbor.k8s.libraries.psu.edu
-      REGISTRY_URL: library/requests
+      REGISTRY_URL: library
       DOCKER_LOGIN: 'robot$circleci'
     steps:
     - setup_remote_docker
     - checkout
     - docker/check:
-        registry: $REGISTRY_HOST
+        registry: $REGISTRY_HOST/$CIRCLE_PROJECT_REPONAME
     - docker/build:
-        image: $REGISTRY_URL
+        image: $REGISTRY_URL/$CIRCLE_PROJECT_REPONAME
         registry: $REGISTRY_HOST
         tag: << parameters.version >>
     - docker/push:
         registry: $REGISTRY_HOST
-        image: $REGISTRY_URL
+        image: $REGISTRY_URL/$CIRCLE_PROJECT_REPONAME
         tag: << parameters.version >>
   deploy:
     docker:
       - image: harbor.k8s.libraries.psu.edu/library/ci-utils:v0.1.6
     environment:
-      CONFIG_REPO: git@github.com:psu-libraries/requests-config.git
+      CONFIG_REPO: git@github.com:psu-libraries/argocd-apps.git
     parameters:
       config_env:
         type: string
@@ -42,8 +42,8 @@ jobs:
             export CONFIG_ENV=<< parameters.config_env >>
             ssh-keyscan github.com > ~/.ssh/known_hosts
             git clone $CONFIG_REPO
-            cd requests-config
-            ./generate_application.sh
+            cd argocd-apps
+            ./bin/generate_app
 
 workflows:
   docker_push:
