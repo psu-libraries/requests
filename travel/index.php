@@ -16,8 +16,7 @@
 ?>
 
 <?php require_once 'pagelayout/templates/header.php';?>
-<p>
-  This is the home page. Probably need some text for this page.
-</p>
+
+
 
 <?php include_once 'pagelayout/templates/footer.php';

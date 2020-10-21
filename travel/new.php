@@ -20,7 +20,7 @@ require_once 'src/inc/incDefaultClasses.php';
 // Runs when the "submit" buttons is clicked
 if (isset($_POST['submit'])) :
 
-    require_once 'src/functions/fncUtility.php';
+    require_once 'src/functions/fncValidations.php';
 
     //    displayArray($_POST);
 

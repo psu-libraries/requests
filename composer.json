@@ -1,15 +1,17 @@
 {
+    "name": "html/requests",
+    "description": "Application for different request types",
     "autoload": {
-        "Doctrine\\": "dbal/"
+        "psr-4": {
+            "Doctrine\\": "dbal/"
+        }
     },
     "require": {
-        "respect/validation": "^2.0",
+        "respect/validation": "^2.1",
         "zurb/foundation": "^6.6.3",
         "doctrine/dbal": "^2.10"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "squizlabs/php_codesniffer": "^3.5",
         "sebastian/environment": "^5.1",
         "doctrine/coding-standard": "^8.1"
     }

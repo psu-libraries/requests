@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 // Used to hold and display any error messages that occur.
 $errorMessage = [];
@@ -13,6 +14,7 @@ if (!isset($_SESSION['user']) && isset($_SERVER['REMOTE_USER'])):
 elseif (!isset($_SESSION['user']) && !isset($_SESSION['REMOTE_USER'])): // For development only. Remove for production.
       $_SESSION['user'] = 'wse1';
 endif;
+
 ?>
 
 <!DOCTYPE html>
@@ -71,5 +73,7 @@ endif;
             class="grid-container l-main" tabindex="0">
 <?php
 
-        require_once '../vendor/autoload.php';
-        require_once '../src/functions/fncUtility.php';
+        require_once "../vendor/autoload.php";
+//$loader = require "vendor/autoload.php";
+//$loader->addPsr4('Respect\\', 'vendor');
+        require_once "../src/functions/fncUtility.php";

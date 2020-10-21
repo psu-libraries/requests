@@ -9,8 +9,5 @@
 
 <?php require_once 'pagelayout/templates/header.php'; ?>
 
-<p>
-  This is the main index page
-</p>
 
 <?php require_once 'pagelayout/templates/footer.php';

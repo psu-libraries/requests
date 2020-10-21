@@ -38,14 +38,19 @@ function numberBetween($var, $low, $high)
     return true;
 }
 
-function compareDateTime($date1, $date2)
+function compareDateTime($date1, $date2, $classes, $invalid)
 {
     $comp1 = strtotime($date1);
     $comp2 = strtotime($date2);
 
-    if ($comp1 < $comp2) { return false;
-    }
-    return true;
+    if ($comp1 < $comp2) :
+        $classes['errorFlag'] = 1;
+        $classes['label'] .= $invalid['label'];
+        $classes['input'] .= $invalid['input'];
+        $classes['error'] .= $invalid['error'];
+    endif;
+
+    return $classes;
 }
 
 function stringToCurrency($value)
@@ -66,7 +71,7 @@ function valEmpName($value, $classes, $v, $invalid)
         $valLength = $v::length(3, 50)->validate($value);
 
         if ($valLength === true) :
-            $valRegex = $v::regex('[A-Za-z\-?]')->validate($value);
+            $valRegex = $v::regex('/([A-Za-z]\-?\s?){1,50}/')->validate($value);
 
             if ($valRegex === false) :
                 $classes['errorMsg'] = $invalid['errorMsg']['pattern'];
@@ -83,6 +88,7 @@ function valEmpName($value, $classes, $v, $invalid)
     endif;
 
     if ($errorFlag === 1) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -133,6 +139,7 @@ function valAccessId($value, $classes, $v, $invalid, $required=false)
     endif;
 
     if ($errorFlag === 1) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -165,7 +172,7 @@ function valInput($value, $classes, $v, $invalid, $required = false)
         $valLength = $v::length(3, 250)->validate($value);
 
         if ($valLength === true) :
-            $valRegex = $v::regex('/^([A-Za-z)(0-9)?\-?\s&\'])+$/')
+            $valRegex = $v::regex('/^([(A-Za-z)(0-9)?\-?\s&\'\,])+$/')
                 ->validate($value);
 
             if ($valRegex === false) :
@@ -179,6 +186,7 @@ function valInput($value, $classes, $v, $invalid, $required = false)
     endif;
 
     if ($errorFlag === 1) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'] ;
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -210,6 +218,7 @@ function valDate($value, $classes, $v, $invalid, $required=false)
     endif;
 
     if ($errorFlag === 1) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -234,6 +243,7 @@ function valTime($value, $classes, $v, $invalid, $required=false)
     endif;
 
     if ($errorFlag === 1) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -270,6 +280,7 @@ function valCurrency($value, $classes, $v, $invalid)
         endif;
 
         if ($errorFlag === 1) :
+            $classes['errorFlag'] = $errorFlag;
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['input'];
             $classes['error'] .= $invalid['error'];
@@ -284,6 +295,7 @@ function valBoolean($value, $classes, $v, $invalid)
     $val = $v::notBlank()->boolVal()->validate($value);
 
     if ($val === false) :
+        $classes['errorFlag'] = $errorFlag;
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];
@@ -316,6 +328,7 @@ function valNotes($value, $classes, $v, $invalid)
         endif;
 
         if ($errorFlag === 1) :
+            $classes['errorFlag'] = $errorFlag;
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['input'];
             $classes['error'] .= $invalid['error'];
@@ -328,16 +341,15 @@ function valNotes($value, $classes, $v, $invalid)
 
 function valNumber($value, $classes, $v, $invalid)
 {
+    $val = $v::optional($v::intVal())->validate($value);
 
-        $val = $v::optional($v::intVal())->validate($value);
-
-        if ($val === false) :
-            $classes['label'] .= $invalid['label'];
-            $classes['input'] .= $invalid['label'];
-            $classes['error'] .= $invalid['error'];
-            $classes['errMsg'] = $invalid['errorMsg']['number'];
-        endif;
-
+    if ($val === false) :
+        $classes['errorFlag'] = 1;
+        $classes['label'] .= $invalid['label'];
+        $classes['input'] .= $invalid['label'];
+        $classes['error'] .= $invalid['error'];
+        $classes['errMsg'] = $invalid['errorMsg']['number'];
+    endif;
 
     return $classes;
 }
