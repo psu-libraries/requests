@@ -126,90 +126,91 @@ class Database {
 			return false;
     }
 
-		public function select($query, $data, $format) {
-			// Connect to the database
-			$db = $this->connect();
+	public function select($query, $data, $format) {
+		// Connect to the database
+		$db = $this->connect();
 
-			//Prepare our query for binding
-			$stmt = $db->prepare($query);
+		//Prepare our query for binding
+		$stmt = $db->prepare($query);
 
-			//Normalize format
-			$format = implode('', $format);
-			$format = str_replace('%', '', $format);
+		//Normalize format
+		$format = implode('', $format);
+		$format = str_replace('%', '', $format);
 
-			// Prepend $format onto $values
-			array_unshift($data, $format);
+		// Prepend $format onto $values
+		array_unshift($data, $format);
 
-			//Dynamically bind values
-			call_user_func_array( array( $stmt, 'bind_param'), $this->ref_values($data));
+		//Dynamically bind values
+		call_user_func_array( array( $stmt, 'bind_param'), $this->ref_values($data));
 
-			//Execute the query
-			$stmt->execute();
+		//Execute the query
+		$stmt->execute();
 
-			//Fetch results
-			$result = $stmt->get_result();
+		//Fetch results
+		$result = $stmt->get_result();
 
-			//Create results object
-			while ($row = $result->fetch_object()) {
-				$results[] = $row;
-			}
-
-			return $results;
-    }
-
-		public function delete($table, $id) {
-			// Connect to the database
-			$db = $this->connect();
-
-			// Prepary our query for binding
-			$stmt = $db->prepare("DELETE FROM {$table} WHERE ID = ?");
-
-			// Dynamically bind values
-			$stmt->bind_param('d', $id);
-
-			// Execute the query
-			$stmt->execute();
-
-			// Check for successful insertion
-			if ( $stmt->affected_rows ) {
-				return true;
-			}
+		//Create results object
+		while ($row = $result->fetch_object()) {
+			$results[] = $row;
 		}
-		private function prep_query($data, $type='insert') {
-			// Instantiate $fields and $placeholders for looping
-			$fields = '';
-			$placeholders = '';
-			$values = array();
 
-			// Loop through $data and build $fields, $placeholders, and $values
-			foreach ( $data as $field => $value ) {
-				$fields .= "{$field},";
-				$values[] = $value;
+		return $results;
+	}
 
-				if ( $type == 'update') {
-					$placeholders .= $field . '=?,';
-				} else {
-					$placeholders .= '?,';
-				}
+	public function delete($table, $id) {
+		// Connect to the database
+		$db = $this->connect();
 
-			}
+		// Prepary our query for binding
+		$stmt = $db->prepare("DELETE FROM {$table} WHERE ID = ?");
 
-			// Normalize $fields and $placeholders for inserting
-			$fields = substr($fields, 0, -1);
-			$placeholders = substr($placeholders, 0, -1);
+		// Dynamically bind values
+		$stmt->bind_param('d', $id);
 
-			return array( $fields, $placeholders, $values );
-		}
-		private function ref_values($array) {
-			$refs = array();
+		// Execute the query
+		$stmt->execute();
 
-			foreach ($array as $key => $value) {
-				$refs[$key] = &$array[$key];
-			}
-
-			return $refs;
+		// Check for successful insertion
+		if ( $stmt->affected_rows ) {
+			return true;
 		}
 	}
+
+	private function prep_query($data, $type='insert') {
+		// Instantiate $fields and $placeholders for looping
+		$fields = '';
+		$placeholders = '';
+		$values = array();
+
+		// Loop through $data and build $fields, $placeholders, and $values
+		foreach ( $data as $field => $value ) {
+			$fields .= "{$field},";
+			$values[] = $value;
+
+			if ( $type == 'update') {
+				$placeholders .= $field . '=?,';
+			} else {
+				$placeholders .= '?,';
+			}
+		}
+
+		// Normalize $fields and $placeholders for inserting
+		$fields = substr($fields, 0, -1);
+		$placeholders = substr($placeholders, 0, -1);
+
+		return array( $fields, $placeholders, $values );
+	}
+
+	private function ref_values($array) {
+		$refs = array();
+
+		foreach ($array as $key => $value) {
+			$refs[$key] = &$array[$key];
+		}
+
+		return $refs;
+	}
+}
 }
 
 }

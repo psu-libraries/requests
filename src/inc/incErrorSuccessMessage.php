@@ -1,36 +1,24 @@
 <div class="grid-container">
     <div class="grid-x">
-        <div class="small-24 medium-12 cell float-center">
-<?php
-if (count($errorMessage) == 0) :
-     // Display the success message.
-    ?>
-                <div class="callout success">
-                    <h2 class="text-center">SUCCESS!</h2>
-         <?php
-            echo "<p>" . $successMessage . "</p>";
+
+        <div class="medium-12 cell float-center">
+            <?php if ($errorFlag === 0) :
+            // Display the success message.
             ?>
+                <div class="callout success">
+                    <p class="text-center">
+                        Your request has been successfully submitted.
+                    </p>
                 </div>
-
-    <?php
-else:
+            <?php else:
                // Display any error messages.
-    ?>
+            ?>
                <div class="callout alert">
-                    <h2 class="text-center">ERROR!</h2>
-                <ul>
-                <?php
-                  $error = flattenArray($errorMessage);
-                foreach ($error as $key):
-                    echo "<li>" . $key . "</li>";
-                endforeach;
-                ?>
-
-                </ul>
-            </div>
-    <?php
-endif;
-?>
+                    <p class="text-center">
+                    Your request has errors in it and has not been submitted.
+                    </p>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

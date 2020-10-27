@@ -1,14 +1,14 @@
 <tr class="grid-x">
     <td class="medium-6 cell">
         <div class="grid-x">
-            <div class="medium-9 cell">
+            <div class="medium-10 cell">
                 <label for="transportation"
                 class="<?php echo $arrTransport['label']; ?>">
                     Transportation
                 </label>
             </div>
 
-            <div class="medium-15 cell">
+            <div class="medium-14 cell">
                 <input type="text"
                        name="transportation"
                        class="<?php echo $arrTransport['input']; ?>"
@@ -27,22 +27,24 @@
         </div>
     </td>
     <td class="medium-18 cell">
-        If flying from airport other than your "home" airport, attach
-        comparison.<br>
-        If choosing to drive over 750 miles roundtrip (personal vehicle or
-        fleet), attach flight comaprison.<br>
+        <p>If flying from airport other than your "home" airport, attach
+        comparison.</p>
+        <p>If choosing to drive over 750 miles roundtrip (personal vehicle or
+        fleet), attach flight comaprison.</p>
         <div class="grid-container">
             <div class="grid-x">
                 <div class="medium-shrink cell">
                     <div class="grid-x">
-                        <div class="medium-15 cell">
+                        <div class="medium-shrink cell">
+
                             <label for="estMileage"
                                    class="<?php echo $arrEstMiles['label']; ?>">
                                 For personal vehicle, estimated roundtrip
                                 mileage:
                             </label>
+
                         </div>
-                        <div class="medium-6 cell">
+                        <div class="medium-5 cell">
                             <div class="input-group">
                                 <input type="text"
                                        name="estMileage"
@@ -54,6 +56,7 @@
                                        class="input-group-field text-right"
                                        pattern="integer">
                             </div>
+
                             <label class="<?php echo $arrEstMiles['error']; ?>">
                                    <?php echo $arrEstMiles['errorMsg']; ?>
                             </label>

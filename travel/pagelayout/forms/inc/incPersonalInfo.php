@@ -2,8 +2,10 @@
   <div class="grid-x">
     <fieldset class="cell">
       <legend>
-        <span id="ttLegend" class="<?php echo $arrTravel['label']; ?>">Type of Travel:</span>
+        <label id="ttLegend" class="<?php echo $arrTravel['label']; ?>">
+        Type of Travel:
         <span class="required">*</span>
+      </label>
       </legend>
       <input type="checkbox"
              name="travelType"
@@ -75,15 +77,13 @@
                name="department"
                class="<?php echo $arrDept['input']; ?>"
                value="<?php echo $department; ?>"
-               minlength="3"
                maxlength="250"
                size="70"
-               pattern="^[\w \d,\-&']+$"
                required>
 
-        <span class="<?php echo $arrDept['error']; ?>"">
+        <label class="<?php echo $arrDept['error'];?>">
             <?php echo $arrDept['errorMsg'];?>
-        </span>
+        </label>
 
       </label>
     </div>

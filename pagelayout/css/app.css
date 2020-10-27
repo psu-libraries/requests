@@ -36,8 +36,9 @@ html {
 
 label {
 /*  font-size: 1rem; */
-/*  font-style: italic;*/
+  font-style: italic;
     font-style: normal;
+    font-weight: bold;
 }
 
 /* ****************************** CLASSES ****************************** */
@@ -83,7 +84,7 @@ label {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 75rem;
+  max-width: rem;
   background-color: #F9F9F9;
   min-height: 82.3%;
   margin-bottom: -154px;

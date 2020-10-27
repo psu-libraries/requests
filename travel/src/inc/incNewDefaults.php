@@ -32,10 +32,10 @@
     $lodging = '';
     $food = '';
     $registration = '';
-    $prepay = '';
+    $prepay = 'no';
     $other = '';
     $total = '0.00';
-    $persTravel = '';
+    $persTravel = 'no';
     $expNotes = '';
 
     // ***** FLEET RESERVATION

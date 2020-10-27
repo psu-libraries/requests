@@ -1,5 +1,8 @@
 <?php
-  $appName = "Travel Request";
+
+session_start();
+
+$appName = "Travel Request";
 
 $arrTabs = [
     0 => ['title'=>'Home','url'=>'../index.php','class'=>''],

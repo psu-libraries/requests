@@ -1,12 +1,12 @@
 <tr class="grid-x">
     <td class="medium-6 cell">
         <div class="grid-x">
-            <div class="medium-9 cell">
+            <div class="medium-10 cell">
                 <label for="registration" class="<?php echo $arrRegistration['label']; ?>">
                   Registration
                 </label>
             </div>
-            <div class="medium-15 cell">
+            <div class="medium-14 cell">
                     <input type="text"
                            name="registration"
                            class="<?php echo $arrRegistration['input']; ?>"
@@ -23,36 +23,45 @@
     </td>
 
     <td class="medium-18 cell">
+        <div class="prepayView">
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="medium-13 cell">
+                        <label class="<?php echo $arrPrepay['labal'];?>">
+                            Do you want the Travel Coordinator to pre-pay
+                            registration?
+                            <span class="required ppreq"> * </span>
+                        </label>
+                    </div>
+                    <div class="medium-11 cell">
+                        <input type="radio"
+                            name="prepay"
+                            class="<?php echo $arrPrepay['input']; ?> prepay"
+                            id="prepayY"
+                            value="yes"
+                            <?php if ($prepay == 'yes') { echo 'checked'; }?>>
 
-        <span class="<?php echo $arrPrepay['label']; ?>">
-        Do you want the Travel Coordinator to pre-pay registration?
-        <span class="required ppreq"> * </span>
-        </span>
-        <input type="radio"
-               name="prepay"
-               class="<?php echo $arrPrepay['input']; ?> prepay"
-               id="prepayY"
-               value="yes"
-               <?php if ($prepay == 'yes') { echo 'checked';
-               } ?>
-               required>
+                        <label for="prepayY" class="<?php echo $arrPrepay['label']; ?>">Yes</label>
 
-        <label for="prepayY" class="<?php echo $arrPrepay['label']; ?>">Yes</label>
+                        <input type="radio"
+                            name="prepay"
+                            class="<?php echo $arrPrepay['input']; ?> prepay"
+                            id="prepayN"
+                            value="no"
+                            <?php if ($prepay == 'no') {echo 'checked'; }?>
+                            required>
 
-        <input type="radio"
-               name="prepay"
-               class="<?php echo $arrPrepay['input']; ?> prepay"
-               id="prepayN"
-               value="no"
-               <?php if ($prepay == 'no') {echo $checked;
-               }?>>
+                        <label for="prepayN"
+                            class="<?php echo $arrPrepay['label']; ?>">No</label><br>
 
-        <label for="prepayN" class="<?php echo $arrPrepay['label']; ?>">No</label><br>
-
-        <span id="prepayError" class="medium-15 cell text-center <?php echo $arrPrepay['error']; ?>">
-            <?php echo $arrPrepay['errorMsg']; ?>
-        </span>
-        If yes, copy of completed registration form must be attached.
-
+                        <label id="prepayError"
+                            class="medium-15 cell text-center <?php echo $arrPrepay['error']; ?>">
+                            <?php echo $arrPrepay['errorMsg']; ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <p>If yes, copy of completed registration form must be attached.</p>
+        </div>
     </td>
 </tr>

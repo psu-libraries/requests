@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $appName = "Travel Request";
 
 $arrTabs = [
@@ -11,8 +13,9 @@ $arrTabs = [
 
 require_once 'pagelayout/templates/header.php';
 
+require_once 'src/inc/incDefaultTravelClasses.php';
+
 require_once 'src/inc/incNewDefaults.php';
-require_once 'src/inc/incDefaultClasses.php';
 
 // Create a connection to the database
 //    require_once SRC . 'database/dbConnection.php';

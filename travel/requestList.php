@@ -1,23 +1,26 @@
 <?php
-  $appName = "Travel Request";
 
-  $arrTabs = [
+session_start();
+
+$appName = "Travel Request";
+
+$arrTabs = [
     0 => ['title'=>'Home','url'=>'../index.php','class'=>''],
     1 => ['title'=>'New Request','url'=>'new.php','class' => ''],
     2 => ['title'=>'Request List','url'=>'requestList.php','class'=>'is-active'],
     3 => ['title'=>'Search Results','url'=>'search.php','class'=>'']
-  ];
+];
 ?>
 
 <?php require_once 'pagelayout/templates/header.php'; ?>
 
-
 <div class="grid-x">
-
   <div class="grid-container">
     <div class="grid-x grid-padding-x">
       <div class="cell">
-        <h1 class="text-center"> Your List of Requests</h1>
+
+        <h1 class="text-center">Your List of Requests</h1>
+
       </div>
     </div>
   </div>
@@ -25,7 +28,8 @@
   <div class="grid-container">
     <div class="grid-x grid-padding-x">
       <div class="cell">
-        <table class="responsive-card-table unstriped">
+
+        <table class="responsive-card-table">
           <thead>
             <tr>
               <th>Name of Requstor</th>
@@ -39,7 +43,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="even">
+            <tr>
               <td data-label="Name of Requestor">Bugs Bunny</td>
               <td data-label="Access ID">bbb1</td>
               <td data-label="Date Submitted">
@@ -77,12 +81,10 @@
             </tr>
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
-
 </div>
-
-
 
 <?php require_once 'pagelayout/templates/footer.php';

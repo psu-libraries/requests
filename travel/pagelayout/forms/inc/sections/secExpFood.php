@@ -1,10 +1,10 @@
 <tr class="grid-x">
     <td class="medium-6 cell">
         <div class="grid-x">
-            <div class="medium-9 cell">
+            <div class="medium-10 cell">
                 <label for="food" class="<?php echo $arrFood['label']; ?>">Food</label>
             </div>
-            <div class="medium-15 cell">
+            <div class="medium-14 cell">
                     <input type="text"
                            name="food"
                            class="<?php echo $arrFood['input']; ?>"

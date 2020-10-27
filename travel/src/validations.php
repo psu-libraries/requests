@@ -38,62 +38,9 @@ $arrDest = valInput($destination, $arrClasses, $validator, $arrInvalid, true);
 $errorFlag += $arrDest['errorFlag'];
 
 // Validate departure date.
-$arrDepDate = valDate($departureDate, $arrClasses, $validator, $arrInvalid, true);
-$errorFlag += $arrDepDate['errorFlag'];
+require_once 'src/inc/incValidateDeparture.php';
 
-// Validate return time.
-$arrDepTime = valTime($departureTime, $arrClasses, $validator, $arrInvalid, true);
-$errorFlag += $arrDepTime['errorFlag'];
-
-$departure = $departureDate . ' ' . $departureTime;
-
-// Validate the departure date/time is not earlier than today's date/time.
-$arrDeparture = compareDateTime($departure, $now, $arrClasses, $arrInvalid);
-$departureFlag = $arrDeparture['errorFlag'];
-
-if ($departureFlag === 1) :
-    $errorFlag += $departureFlag;
-    $arrDepDate['label'] .= $arrInvalid['label'];
-    $arrDepDate['input'] .= $arrInvalid['input'];
-    $arrDepTime['label'] .= $arrInvalid['label'];
-    $arrDepTime['input'] .= $arrInvalid['input'];
-    $arrDeparture['errorMsg'] = "Cannot be earlier than today's date.";
-endif;
-
-// Validate return date.
-$arrRetDate = valDate($returnDate, $arrClasses, $validator, $arrInvalid, true);
-$errorFlag += $arrRetDate['errorFlag'];
-
-// Validate return time.
-$arrRetTime = valtime($returnTime, $arrClasses, $validator, $arrInvalid, true);
-$errorFlag += $arrRetTime['errorFlag'];
-
-$return = $returnDate . ' ' . $returnTime;
-
-// Validate return date/time is not earlier than departure date/time.
-$arrReturn = compareDateTime($return, $departure, $arrClasses, $arrInvalid);
-$returnFlag = $arrReturn['errorFlag'];
-
-if ($returnFlag === 1) :
-    $arrReturn['errorMsg'] = "Cannot be earlier than departure date.";
-else:
-    // Validate return date/time is not earlier than today's date/time
-    $arrReturn = compareDateTime($return, $now, $arrClasses, $arrInvalid);
-    $returnFlag = $arrReturn['errorFlag'];
-
-    if ($returnFlag === 1) :
-        $arrRetDate['errorMsg'] = "Cannot be earlier than today's date.";
-    endif;
-endif;
-
-// Adjust classes for departure date/time and return date/time.
-if ($returnFlag === 1) :
-    $errorFlag += $returnFlag;
-    $arrRetDate['label'] .= $arrInvalid['label'];
-    $arrRetDate['input'] .= $arrInvalid['input'];
-    $arrRetTime['label'] .= $arrInvalid['label'];
-    $arrRetTime['input'] .= $arrInvalid['input'];
-endif;
+require_once 'src/inc/incValidateReturn.php';
 
 // Validate the conference name.
 $arrConf = valInput($conference, $arrClasses, $validator, $arrInvalid, true);
@@ -104,7 +51,7 @@ $arrSpons = valInput($sponsor, $arrClasses, $validator, $arrInvalid, true);
 $errorFlag += $arrSpons['errorFlag'];
 
 // Validate the member radio buttons.
-$arrMember = valBoolean($member, $arrClasses, $validator, $arrInvalid);
+$arrMember = valBoolean($member, $arrClasses, $validator, $arrInvalid, true);
 $errorFlag += $arrMember['errorFlag'];
 
 // Validate the General Information notes.
@@ -142,9 +89,10 @@ $arrOther = valCurrency($other, $arrExpClasses, $validator, $arrInvalid);
 $errorFlag += $arrOther['errorFlag'];
 
 // Validate the personal travel radio buttons
-$arrPersTravel = valBoolean($persTravel, $arrClasses, $validator, $arrInvalid);
+$arrPersTravel = valBoolean($persTravel, $arrClasses, $validator, $arrInvalid, true);
 $errorFlag += $arrPersTravel['errorFlag'];
 
+$total = $transportation + $lodging + $food + $registration + $other;
 // TODO: enter file validation (maybe)
 
 // Validate the Expenses notes.
@@ -160,94 +108,11 @@ $errorFlag += $arrVehicle['errorFlag'];
  if (length($fleet) > 0) :
 
     // Validate the pickup date.
-    $arrPickupDate = valDate($pickupDate, $arrClasses, $validator, $arrInvalid, true);
-    $errorFlag += $arrPickupDate['errorFlag'];
-
-    // Validate the pickup time.
-    $arrPickupTime = valTime($pickupTime, $arrClasses, $validator, $arrInvalid, true);
-    $errorFlag += $arrPickupTime['errorFlag'];
-
-    $pickup = $pickupDate . ' ' . $pickupTime;
-
-    // Validate the pickup date/time is not earlier than today's date/time.
-    $arrPickup = compareDateTime($pickup, $now, $arrClasses, $arrInvalid);
-    $pickupFlag = $arrPickup['errorFlag'];
-
-    if ($pickupFlag === 1) :
-        $arrPickup['errorMsg'] = "Cannot be earlier than today's date.";
-    else:
-
-        // Validate the pickup date/time is not later than the departure date/time.
-        $arrPickup = compareDateTime($departure, $pickup, $arrClasses, $arrInvalid);
-        $pickupFlag = $arrPickup['errorFlag'];
-
-        if ($pickupFlag === 1 ):
-            $arrPickup['errorMsg'] = "Cannot be later that departure date.";
-        else:
-
-            // Validate the pickup date/time is not later than return date/time.
-            $arrPickup = compareDateTime($return, $pickup, $arrClasses, $arrInvalid);
-            $pickupFlag = $arrPickup['errorFlag'];
-
-            if ($pickupFlag === 1) :
-                $arrPickup['errorMsg'] = "Cannot be later than return date.";
-            endif;
-        endif;
-    endif;
-
-    if ($pickupFlag === 1) :
-        $errorFlag += $pickupFlag;
-        $arrPickupDate['label'] .= $arrInvalid['label'];
-        $arrPickupDate['input'] .= $arrInvalid['input'];
-        $arrPickupTime['label'] .= $arrInvalid['label'];
-        $arrPickupTime['input'] .= $arrInvalid['input'];
-        $arrPickup['error'] .= $arrInvalid['error'];
-    endif;
+    require_once 'src/inc/incValidatePickup.php';
 
     // Validate dropoff date.
-    $arrDropoffDate = valDate($dropoffDate, $arrClasses, $validator, $arrInvalid, true);
-    $errorFlag += $arrDropoffDate['errorFlag'];
-
-    // Validate dropoff time.
-    $arrDropoffTime = valtime($dropoffTime, $arrClasses, $validator, $arrInvalid, true);
-    $errorFlag += $arrDropoffTime['errorFlag'];
-
-    $dropoff = $dropoffDate . ' ' . $dropoffTime;
-
-    // Validate dropoff date/time is not earlier than pickup date/time.
-    $arrDropoff = compareDateTime($dropoff, $pickup, $arrClasses, $arrInvalid);
-    $dropoffFlag = $arrDropoff['errorFlag'];
-
-    if ($dropoffFlag === 1) :
-        $arrDropoff['errorMsg'] = "Cannot be earlier than pickup date.";
-    else:
-
-        // Validate dropoff date/time is not earlier than departure date/time.
-        $arrDropoff = compareDateTime($dropoff, $departure, $arrClasses, $arrInvalid);
-        $dropoffFlag = $arrDropoff['errorFlag'];
-
-        if ($dropoffFlag === 1) :
-            $arrDropoff['errorMsg'] = "Cannot be earlier than departure date.";
-        else:
-
-            // Validate dropoff date/time is not earlier than today's date/time.
-            $arrDropoff = compareDateTime($dropoff, $now, $arrClasses, $arrInvalid);
-            $dropoffFlag = $arrDropoff['errorFlag'];
-
-            if ($dropoffFlag === 1) :
-                $arrDropoff['errorMsg'] = "Cannot be earlier than today's date.";
-            endif;
-        endif;
-    endif;
-
-    if ($dropoffFlag === 1) :
-        $errorFlag += $dropoffFlag;
-        $arrDropoffDate['label'] .= $arrInvalid['label'];
-        $arrDropoffDate['input'] .= $arrInvalid['input'];
-        $arrDropoffTime['label'] .= $arrInvalid['label'];
-        $arrDropoffTime['input'] .= $arrInvalid['input'];
-    endif;
-endif;
+    require_once 'src/inc/incValidateDropoff.php';
+ endif;
 
 // Validate the carpool.
 $arrCarpool = valCarpool($carpool, $arrClasses, $validator, $arrInvalid);
