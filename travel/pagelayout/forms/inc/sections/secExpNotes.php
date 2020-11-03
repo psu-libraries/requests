@@ -5,7 +5,7 @@ $arrNotes = [
     'labelText' => 'Notes:',
     'input' => $arrExpNotes['input'],
     'id' => 'expNotes',
-    'value' => $expNotes,
+    'notes' => $expNotes,
     'error' => $arrExpNotes['error'],
     'errorMsg' => $arrExpNotes['errorMsg']
 ];

@@ -1,4 +1,5 @@
 <?php
+
 $arrExpense = [
     'labelText' => 'Food',
     'label' => $arrFood['label'],

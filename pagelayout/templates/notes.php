@@ -6,10 +6,12 @@
                   class="<?php echo $arrNotes['input']; ?>"
                   id="<?php echo $arrNotes['id'];?>"
                   maxlength="500"
-                  rows="1"><?php echo $value; ?></textarea>
+                  rows="1"><?php echo $notes; ?></textarea>
     </label>
 
     <label class="<?php echo $arrNotes['error']; ?>">
         <?php echo $arrNotes['errorMsg']; ?>
     </label>
 </div>
+
+<?php unset($arrNotes);

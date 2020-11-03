@@ -5,7 +5,7 @@ $arrNotes = [
     'labelText' => 'Roles, Goals, Attendance, and other additional helpful notes:',
     'input' => $arrGiNotes['input'],
     'id' => 'gINotes',
-    'value' => $gINotes,
+    'notes' => $gINotes,
     'error' => $arrGiNotes['error'],
     'errorMsg' => $arrGiNotes['errorMsg']
 ];
