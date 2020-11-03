@@ -14,14 +14,13 @@ $arrTabs = [
 require_once 'pagelayout/templates/header.php';
 
 require_once 'src/inc/incDefaultTravelClasses.php';
-
 require_once 'src/inc/incNewDefaults.php';
-
-// Create a connection to the database
-//    require_once SRC . 'database/dbConnection.php';
 
 // Runs when the "submit" buttons is clicked
 if (isset($_POST['submit'])) :
+
+    // Create a connection to the database
+    //require_once 'src/database/connection.php';
 
     require_once 'src/functions/fncValidations.php';
 

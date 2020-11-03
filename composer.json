@@ -3,7 +3,9 @@
     "description": "Application for different request types",
     "autoload": {
         "psr-4": {
-            "Doctrine\\": "dbal/"
+            "Doctrine\\": "dbal/",
+            "Respect\\": "validation/",
+            "Zurb\\": "foundation"
         }
     },
     "require": {

@@ -92,7 +92,7 @@ $errorFlag += $arrOther['errorFlag'];
 $arrPersTravel = valBoolean($persTravel, $arrClasses, $validator, $arrInvalid, true);
 $errorFlag += $arrPersTravel['errorFlag'];
 
-$total = $transportation + $lodging + $food + $registration + $other;
+$total = floatval($transportation) + floatval($lodging) + floatval($food) + floatval($registration) + floatval($other);
 // TODO: enter file validation (maybe)
 
 // Validate the Expenses notes.

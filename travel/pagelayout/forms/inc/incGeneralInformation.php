@@ -1,9 +1,9 @@
-<fieldset class="fieldset">
+<fieldset class="fieldset grid-container">
     <legend>GENERAL INFORMATION</legend>
 
-    <div class="grid-container">
+<!--    <div class="grid-container"> -->
         <div class="grid-x">
-            <div class="medium-10 cell">
+            <div class="medium-9 cell">
 
                 <label class="<?php echo $arrDest['label']; ?>">
                     Destination (City, State): <span class="required">*</span>
@@ -19,28 +19,6 @@
                 <label class="<?php echo $arrDest['error']; ?>">
                     <?php echo $arrDest['errorMsg']; ?>
                 </label>
-            </div>
-
-            <div class="hide-for-small-only medium-1 cell">&nbsp;</div>
-
-            <div class="medium-6 cell">
-                <?php
-                require_once 'pagelayout/forms/inc/sections/secDeparture.php';
-                ?>
-            </div>
-            <div class="hide-for-small-only medium-1 cell">&nbsp;</div>
-
-            <div class="medium-6 cell">
-                <?php
-                require_once 'pagelayout/forms/inc/sections/secReturn.php';
-                ?>
-            </div>
-        </div>
-    </div>
-
-    <div class="grid-container">
-        <div class="grid-x">
-            <div class="medium-10 cell">
 
                 <label class="<?php echo $arrConf['label']; ?>">
                     Conference Name: <span class="required">*</span>
@@ -56,8 +34,20 @@
                 <label class="<?php echo $arrConf['error']; ?>">
                     <?php echo $arrConf['errorMsg']; ?>
                 </label>
+
             </div>
 
+            <?php
+                require_once 'pagelayout/forms/inc/sections/secDeparture.php';
+                require_once 'pagelayout/forms/inc/sections/secReturn.php';
+            ?>
+
+        </div>
+<!--    </div>
+
+    <div class="grid-container">
+-->
+        <div class="grid-x">
             <div class="medium-10 cell">
 
                 <label class="<?php echo $arrSpons['label']; ?>">
@@ -77,65 +67,11 @@
                 </label>
             </div>
 
-            <div class="medium-4 cell">
-
-                <label class="<?php echo $arrMember['label']; ?>">
-                    Are you a member? <span class="required">* </span>
-                </label>
-
-                <input type="radio"
-                      name="member"
-                      class="<?php echo $arrMember['input']; ?>"
-                      id="memberY"
-                      value="yes"
-                      <?php
-                        if ($member == 'yes') :
-                            echo 'checked';
-                        endif;
-                        ?>>
-                <label for="memberY"
-                      class="<?php echo $arrMember['label']; ?>">
-                    Yes
-                </label>
-
-                <input type="radio"
-                      name="member"
-                      class="<?php echo $arrMember['input']; ?>"
-                      id="memberN"
-                      value="no"
-                      <?php
-                      if ($member == 'no') : echo 'checked'; endif;
-                      ?>
-                      required>
-                <label for="memberN"
-                      class="<?php echo $arrMember['label']; ?>">
-                    No
-                </label>
-
-                <label id="memberError" class="<?php echo $arrMember['error']; ?>">
-                    <?php echo $arrMember['errorMsg']; ?>
-                </label>
-            </div>
+            <?php require 'pagelayout/forms/inc/sections/secMember.php';?>
         </div>
-    </div>
-
-    <div class="grid-container">
         <div class="grid-x">
-            <div class="cell">
 
-                <label class="<?php echo $arrGiNotes['label']; ?>">
-                    Roles, Goals, Attendance, and other additional helpful notes:
-                    <textarea name="gINotes"
-                              class="<?php echo $arrGiNotes['input']; ?>"
-                              id="gINotes"
-                              maxlength="500"
-                              rows="1"><?php echo $gINotes; ?></textarea>
-                </label>
-
-                <label class="<?php echo $arrGiNotes['error']; ?>">
-                    <?php echo $arrGiNotes['errorMsg']; ?>
-                </label>
-            </div>
+        <?php require 'pagelayout/forms/inc/sections/secGiNotes.php';?>
         </div>
-    </div>
+<!--    </div> -->
 </fieldset>

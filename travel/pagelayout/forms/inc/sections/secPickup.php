@@ -1,41 +1,24 @@
-<div class="grid-x">
-    <div class="medium-12 cell">
-        <label class="<?php echo $arrPickupDate['label']; ?>">
-            Pick-up Date <span class="required flreq hide">*</span>
-            <input type="text"
-                   name="pickupDate"
-                   class="<?php echo $arrPickupDate['input']; ?> fleet"
-                   id="pickupDate"
-                   maxlength="10"
-                   size="10"
-                   value="<?php echo $pickupDate ?? ''; ?>"
-                   placeholder="mm/dd/yyyy">
+<?php
 
-            <label class="<?php echo $arrPickupDate['error']; ?>">
-                <?php echo $arrPickupDate['errorMsg']; ?>
-            </label>
-        </label>
-    </div>
+$arrDateTime = [
+    "id" => "pickupId",
+    "legend" => "Pickup",
+    'required' => false,
+    "asterisk" => "",
+    "dateLabel" => $arrPickupDate['label'],
+    "dateName" => "pickupDate",
+    "dateInput" => $arrPickupDate['input'],
+    "date" => $pickupDate,
+    "dateError" => $arrPickupDate['error'],
+    "dateMsg" => $arrPickupDate['errorMsg'],
+    "timeLabel" => $arrPickupTime['label'],
+    "timeName" => "pickupTime",
+    "timeInput" => $arrPickupTime['input'],
+    "time" => $pickupTime,
+    "timeError" => $arrPickupTime['error'],
+    "timeMsg" => $arrPickupTime['errorMsg'],
+    "error" => $arrPickup['error'],
+    "errorMsg" => $arrPickup['errorMsg']
+];
 
-    <div class="medium-12 cell">
-        <label class="<?php echo $arrPickupTime['label']; ?>">
-            Pick-up Time <span class="required flreq hide">*</span>
-            <input type="text"
-                   name="pickupTime"
-                   class="<?php echo $arrPickupTime['input']; ?> fleet"
-                   id="pickupTime"
-                   maxlength="8"
-                   size="8"
-                   value="<?php echo $pickupTime ?? ''; ?>"
-                   placeholder="01:01 PM">
-
-            <span class="<?php echo $arrPickupTime['error']; ?>">
-                <?php echo $arrPickupTime['errorMsg']; ?>
-            </span>
-        </label>
-    </div>
-
-    <span id="pickupError" class="<?php echo $arrPickup['error'];?>">
-        <?php echo $arrPickup['errorMsg']; ?>
-    </span>
-</div>
+require '../pagelayout/templates/dateTime.php';

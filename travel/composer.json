@@ -1,0 +1,14 @@
+{
+    "name": "requests/travel",
+    "description": "Create an online request system for Travel requests.",
+    "type": "project",
+    "require": {
+        "respect/validation": "^2.1",
+        "doctrine/orm": "^2.7",
+        "zurb/foundation": "^6.6"
+    },
+    "require-dev": {
+        "sebastian/environment": "^5.1",
+        "doctrine/coding-standard": "^8.2"
+    }
+}
