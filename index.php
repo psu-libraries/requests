@@ -8,6 +8,6 @@
 ?>
 
 <?php require_once 'pagelayout/templates/header.php'; ?>
-
-
+<?php echo "ldap is loaded: " . extension_loaded('ldap') . "<br>";?>
+<?php phpinfo();?>
 <?php require_once 'pagelayout/templates/footer.php';

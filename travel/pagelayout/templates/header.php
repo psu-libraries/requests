@@ -69,3 +69,7 @@ endif;
 
         require_once "../vendor/autoload.php";
         require_once "../src/functions/fncUtility.php";
+
+        include 'src/database/connect.php';
+        include '../src/database/connection.php';
+//        require_once "../src/ldap/connection.php";

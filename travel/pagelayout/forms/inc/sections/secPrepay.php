@@ -1,6 +1,7 @@
 <?php
 
 $mainLabel = "Do you want the Travel Coordinator to pre-pay registration?";
+$label = $arrPrepay['label'];
 $error = $arrPrepay['error'];
 $errorMsg = $arrPrepay['errorMsg'];
 $required = true;

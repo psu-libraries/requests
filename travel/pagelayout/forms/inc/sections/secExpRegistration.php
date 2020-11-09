@@ -1,7 +1,8 @@
 <?php
-$arrExpense = [
+$arrCurrency = [
     'labelText' => 'Registration',
     'label' => $arrRegistration['label'],
+    'input' => $arrRegistration['input'],
     'id' => 'registration',
     'value' => $registration,
     'error' => $arrRegistration['error'],
@@ -11,7 +12,7 @@ $arrExpense = [
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php';?>
+    <?php require '../pagelayout/templates/currency.php';?>
 
     <td class="medium-18 cell">
         <div class="prepayView">

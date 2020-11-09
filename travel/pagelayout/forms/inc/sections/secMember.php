@@ -1,6 +1,7 @@
 <?php
 
 $mainLabel = "Are you a member?";
+$label = $arrMember['label'];
 $error = $arrMember['error'];
 $errorMsg = $arrMember['errorMsg'];
 $required = true;
@@ -18,7 +19,7 @@ $arrRadios = [
     1 => [
         'label' => $arrMember['label'],
         'name'  => 'member',
-        'input' => $arrPersTravel['input'],
+        'input' => $arrMember['input'],
         'id' => 'memberN',
         'value' => 'No',
         'var' => $member,

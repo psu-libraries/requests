@@ -1,8 +1,9 @@
 <?php
 
-$arrExpense = [
+$arrCurrency = [
     'labelText' => 'Tansportation',
     'label' => $arrTransport['label'],
+    'input' => $arrTransport['input'],
     'id' => 'transportation',
     'value' => $transportation,
     'error' => $arrTransport['error'],
@@ -15,7 +16,7 @@ $help = '<p class="help-text" id="transHelpText">(air, auto, train, taxi)</p>';
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php'; ?>
+    <?php require '../pagelayout/templates/currency.php'; ?>
 
     <td class="medium-18 cell">
         <p>If flying from airport other than your "home" airport, attach

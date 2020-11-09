@@ -69,7 +69,7 @@ $(document).ready(function () {
 
   $(".expense").on("change", function () {
     var sum = calcTotal("expense");
-
+    console.log("hey");
     $('#total').val(Number(sum).toFixed(2));
   });
 

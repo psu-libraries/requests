@@ -81,8 +81,10 @@ $arrRegistration = valCurrency($registration, $arrExpClasses, $validator, $arrIn
 $errorFlag += $arrRegistration['errorFlag'];
 
 // Validate the prepay radio buttons.
-$arrPrepay = valBoolean($prepay, $arrExpClasses, $validator, $arrInvalid);
-$errorFlag += $arrPrepay['errorFlag'];
+if (!empty($registration)):
+   $arrPrepay = valBoolean($prepay, $arrClasses, $validator, $arrInvalid, true);
+   $errorFlag += $arrPrepay['errorFlag'];
+endif;
 
 // Validate the amount entered for other expenses.
 $arrOther = valCurrency($other, $arrExpClasses, $validator, $arrInvalid);

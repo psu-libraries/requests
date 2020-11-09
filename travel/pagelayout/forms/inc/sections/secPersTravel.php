@@ -1,6 +1,7 @@
 <?php
 
 $mainLabel = "Is personal travel combined with this trip?";
+$label = $arrPersTravel['label'];
 $error = $arrPersTravel['error'];
 $errorMsg = $arrPersTravel['errorMsg'];
 $required = true;

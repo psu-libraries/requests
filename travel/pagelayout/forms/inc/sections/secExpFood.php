@@ -1,8 +1,9 @@
 <?php
 
-$arrExpense = [
+$arrCurrency = [
     'labelText' => 'Food',
     'label' => $arrFood['label'],
+    'input' => $arrFood['input'],
     'id' => 'food',
     'value' => $food,
     'error' => $arrFood['error'],
@@ -12,7 +13,7 @@ $arrExpense = [
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php'; ?>
+    <?php require '../pagelayout/templates/currency.php'; ?>
 
     <td class="medium-18 cell">
         <a href="https://www.gsa.gov/travel/plan-book/per-diem-rates">
@@ -20,3 +21,5 @@ $arrExpense = [
         </a>
     </td>
 </tr>
+
+<?php unset($arrCurrency);

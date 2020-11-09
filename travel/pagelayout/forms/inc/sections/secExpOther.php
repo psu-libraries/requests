@@ -1,7 +1,8 @@
 <?php
-$arrExpense = [
+$arrCurrency = [
     'labelText' => 'Other',
     'label' => $arrOther['label'],
+    'input' => $arrOther['input'],
     'id' => 'other',
     'value' => $other,
     'error' => $arrOther['error'],
@@ -11,7 +12,7 @@ $arrExpense = [
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php';?>
+    <?php require '../pagelayout/templates/currency.php';?>
 
     <td class="medium-18 cell">
         (e.g. phone, internet connectivity, parking, tips, tolls, misc)

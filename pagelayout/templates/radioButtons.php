@@ -3,7 +3,7 @@
         <div class="grid-x">
 
             <div class="medium-shrink cell">
-                <label class="<?php echo $arrRadios['label']; ?>">
+                <label class="<?php echo $label; ?>">
                     <?php echo $mainLabel;?>
                 <?php
                     if ($required === true) : ?>
@@ -32,10 +32,18 @@
 
                 <?php endfor; ?>
 
-                <label class="<?php echo $arrBools['error']; ?>">
-                    <?php echo $arrBools['errorMsg']; ?>
+                <label class="<?php echo $error; ?>">
+                    <?php echo $errorMsg; ?>
                 </label>
             </div>
         </div>
     </div>
 </div>
+
+<?php
+    unset($label);
+    unset($mainLabel);
+    unset($error);
+    unset($errorMsg);
+    unset($required);
+    unset($arrRadios);

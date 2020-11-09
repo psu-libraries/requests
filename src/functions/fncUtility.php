@@ -395,7 +395,7 @@ function valCurrency($value, $classes, $v, $invalid)
     if (!empty($value)) :
         $errorFlag = $classes['errorFlag'];
 
-        if (is_float($value) === 0):
+        if (is_float($value) === false):
 
             $value = stringToCurrency($value);
 
@@ -415,14 +415,14 @@ function valCurrency($value, $classes, $v, $invalid)
                         $errorFlag = 1;
                     endif;
                 else:
-                    $classes['errorMsg'] = $invalid['errorMsg']['number'];
+                    $classes['errorMsg'] = $invalid['errorMsg']['number'] . "llll";
                 endif;
             else:
-                $classes['errorMsg'] = $invalid['errorMsg']['number'];
+                $classes['errorMsg'] = $invalid['errorMsg']['number'] . "yyyyy";
                 $errorFlag = 1;
             endif;
         else:
-            $classes['errorMsg'] = $invalid['errorMsg']['number'];
+            $classes['errorMsg'] = $invalid['errorMsg']['number'] . "zzzz";
             $errorFlag = 1;
         endif;
 
@@ -452,9 +452,9 @@ function valCurrency($value, $classes, $v, $invalid)
 function valBoolean($value, $classes, $v, $invalid, $required=false)
 {
     if ($required === true) :
-        $val = $v::notBlank()->boolVal()->validate($value);
+//        $val = $v::notBlank()->boolVal()->validate($value);
 
-        if ($val === false) :
+        if ($value != "Yes" && $value != "No") :
             $classes['errorFlag'] = 1;
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['input'];
