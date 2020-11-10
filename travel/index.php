@@ -10,10 +10,7 @@ $arrTabs = [
     2 => ['title' => 'Request List','url' => 'requestList.php','class' => ''],
     3 => ['title' => 'Search Results','url' => 'search.php','class' => '']
 ];
-?>
-
-<?php require_once 'pagelayout/templates/header.php';?>
+ require_once 'pagelayout/templates/header.php';
 
 
-
-<?php include_once 'pagelayout/templates/footer.php';
+ require_once 'pagelayout/templates/footer.php';

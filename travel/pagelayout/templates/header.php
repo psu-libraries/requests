@@ -69,3 +69,6 @@ endif;
 
         require_once "../vendor/autoload.php";
         require_once "../src/functions/fncUtility.php";
+
+        require_once "src/database/connection.php";
+        require_once "../src/database/connect.php";
