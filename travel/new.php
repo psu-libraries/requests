@@ -18,29 +18,24 @@ require_once 'src/inc/incDefaultTravelClasses.php';
 require_once 'src/inc/incNewDefaults.php';
 
 // Create a connection to the database
-//    require_once SRC . 'database/dbConnection.php';
+    require_once 'src/database/connection.php';
 
 // Runs when the "submit" buttons is clicked
 if (isset($_POST['submit'])) :
 
-    require_once 'src/functions/fncValidations.php';
-
-    //    displayArray($_POST);
-
-    //displayArray(json_encode($_POST));
-    //    echo json_encode($_POST);
-    //        require_once SRC . '/database/connection.php';
-
-    //        require_once SRC . '/database/queries.php';
-
     // Sanitize all of the values in the $_POST array.
-        include_once '../src/functions/fncSanitizer.php';
+    include_once '../src/functions/fncSanitizer.php';
+
+    // Validation functions specific for travel request.
+    require_once 'src/functions/fncValidations.php';
 
     // Validate all of the values in the $_POST array.
         include_once 'src/validations.php';
 
-    // Script that inserts data into the database.
-    //        require_once SRC . '/database/insertRequest.php';
+        if ($errorFlag === 0): // Default value set in validations.php
+            // Script that inserts data into the database.
+            require_once 'src/database/insertRequest.php';
+        endif;
 
     // Displays error and success messages
     include_once '../src/inc/incErrorSuccessMessage.php';

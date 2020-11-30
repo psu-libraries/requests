@@ -8,6 +8,7 @@
 		"projectManager.git.baseFolders": [
 			"requests"
 		],
-		"githubRepositoryManager.saveToken": true
+		"githubRepositoryManager.saveToken": true,
+		"composer.workingPath": "/Users/wse1/projects/docker/requests/composer.json"
 	}
 }

@@ -87,9 +87,9 @@
                       name="member"
                       class="<?php echo $arrMember['input']; ?>"
                       id="memberY"
-                      value="yes"
+                      value="Yes"
                       <?php
-                        if ($member == 'yes') :
+                        if ($member == 'Yes') :
                             echo 'checked';
                         endif;
                         ?>>
@@ -102,9 +102,9 @@
                       name="member"
                       class="<?php echo $arrMember['input']; ?>"
                       id="memberN"
-                      value="no"
+                      value="No"
                       <?php
-                      if ($member == 'no') : echo 'checked'; endif;
+                      if ($member == 'No') : echo 'checked'; endif;
                       ?>
                       required>
                 <label for="memberN"

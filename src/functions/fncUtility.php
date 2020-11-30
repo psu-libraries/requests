@@ -305,16 +305,18 @@ function valCurrency($value, $classes, $v, $invalid)
 
 function valBoolean($value, $classes, $v, $invalid, $required=false)
 {
+echo "value: " . $value . "<br>";
     if ($required === true) :
-        $val = $v::notBlank()->boolVal()->validate($value);
+        //$val = $v::notBlank()->boolVal()->validate($value);
 
-        if ($val === false) :
+/*        if ($val === false) :
             $classes['errorFlag'] = 1;
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['input'];
             $classes['error'] .= $invalid['error'];
             $classes['errorMsg'] = $invalid['errorMsg']['boolean'];
         endif;
+*/
     endif;
 
     return $classes;

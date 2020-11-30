@@ -7,17 +7,18 @@
 
     $now = date('m/d/Y');
     $status = "Needs Reviewed";
-
+    $errorMessage = [];
+displayArray($conn);
     // Insert data into the "request" table.
-    $sql = "INSERT INTO request (travel_type_admin, travel_type_prof,"
-         . " requestor_name, access_id, department, submission_date,"
-         . " destination, departure_date, departure_time, return_date,"
-         . " return_time, conference, sponsor, member, notes)"
-         . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO request (travel_type, requestor_name, access_id,"
+         . " department, submission_date, destination, departure_date,"
+         . " departure_time, return_date, return_time, conference, sponsor,"
+         . " member, notes)"
+         . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     $req = $conn->prepare($sql);
 
-    $req->bind_param('sssssssssssssss', $travelTypeAdmin, $travelTypeProf,$empName, $accessId, $department, $now, $destination, $departureDate, $departureTime, $returnDate, $returnTime, $conference, $sponsor, $member, $notes);
+    $req->bind_param("sssssssssssssss", $travelType,$empName, $accessId, $department, $now, $destination, $departureDate, $departureTime, $returnDate, $returnTime, $conference, $sponsor, $member, $notes);
 
     $req->execute();
     unset($sql);
@@ -48,6 +49,14 @@
 
         $exp->execute();
         unset ($sql);
+
+        // Check to see if the data was inserted into the "request" table.
+        if (isset($exp->insert_id)):
+            $expId = $exp->insert_id;
+        else:
+            array_push($errorMessage, "The system has encountered an error. Try again later.");
+            $expId = 0;
+        endif;
 
 // ********** FLEET TABLE
         // If the length of the "fleet" variable is greater than 0, then

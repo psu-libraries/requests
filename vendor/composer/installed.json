@@ -167,32 +167,27 @@
     },
     {
         "name": "doctrine/coding-standard",
-        "version": "8.1.0",
-        "version_normalized": "8.1.0.0",
+        "version": "8.2.0",
+        "version_normalized": "8.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/coding-standard.git",
-            "reference": "637003febec655f1b27f4301b44bf2264be57434"
+            "reference": "529d385bb3790431080493c0fe7adaec39df368a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/637003febec655f1b27f4301b44bf2264be57434",
-            "reference": "637003febec655f1b27f4301b44bf2264be57434",
+            "url": "https://api.github.com/repos/doctrine/coding-standard/zipball/529d385bb3790431080493c0fe7adaec39df368a",
+            "reference": "529d385bb3790431080493c0fe7adaec39df368a",
             "shasum": ""
         },
         "require": {
             "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7",
-            "php": "^7.2 || ^8.0",
+            "php": "^7.1 || ^8.0",
             "slevomat/coding-standard": "^6.3.9",
             "squizlabs/php_codesniffer": "^3.5.5"
         },
-        "time": "2020-07-05T20:35:22+00:00",
+        "time": "2020-10-25T14:56:19+00:00",
         "type": "phpcodesniffer-standard",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "7.0.x-dev"
-            }
-        },
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -225,24 +220,24 @@
     },
     {
         "name": "doctrine/dbal",
-        "version": "2.11.2",
-        "version_normalized": "2.11.2.0",
+        "version": "2.12.0",
+        "version_normalized": "2.12.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/dbal.git",
-            "reference": "b88a45cbc395e850b2d958dcd7b9d49d09ff23e0"
+            "reference": "c6d37b4c42aaa3c3ee175f05eca68056f4185646"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/dbal/zipball/b88a45cbc395e850b2d958dcd7b9d49d09ff23e0",
-            "reference": "b88a45cbc395e850b2d958dcd7b9d49d09ff23e0",
+            "url": "https://api.github.com/repos/doctrine/dbal/zipball/c6d37b4c42aaa3c3ee175f05eca68056f4185646",
+            "reference": "c6d37b4c42aaa3c3ee175f05eca68056f4185646",
             "shasum": ""
         },
         "require": {
             "doctrine/cache": "^1.0",
             "doctrine/event-manager": "^1.0",
             "ext-pdo": "*",
-            "php": "^7.3"
+            "php": "^7.3 || ^8"
         },
         "require-dev": {
             "doctrine/coding-standard": "^8.1",
@@ -256,7 +251,7 @@
         "suggest": {
             "symfony/console": "For helpful console commands such as SQL execution and import of files."
         },
-        "time": "2020-10-19T02:01:37+00:00",
+        "time": "2020-10-22T17:26:24+00:00",
         "bin": [
             "bin/doctrine-dbal"
         ],
@@ -717,17 +712,17 @@
     },
     {
         "name": "squizlabs/php_codesniffer",
-        "version": "3.5.6",
-        "version_normalized": "3.5.6.0",
+        "version": "3.5.8",
+        "version_normalized": "3.5.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-            "reference": "e97627871a7eab2f70e59166072a6b767d5834e0"
+            "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e97627871a7eab2f70e59166072a6b767d5834e0",
-            "reference": "e97627871a7eab2f70e59166072a6b767d5834e0",
+            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+            "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
             "shasum": ""
         },
         "require": {
@@ -739,7 +734,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
         },
-        "time": "2020-08-10T04:50:15+00:00",
+        "time": "2020-10-23T02:01:07+00:00",
         "bin": [
             "bin/phpcs",
             "bin/phpcbf"
@@ -770,30 +765,30 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.18.1",
-        "version_normalized": "1.18.1.0",
+        "version": "v1.20.0",
+        "version_normalized": "1.20.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
+            "reference": "39d483bdf39be819deabf04ec872eb0b2410b531"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
-            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/39d483bdf39be819deabf04ec872eb0b2410b531",
+            "reference": "39d483bdf39be819deabf04ec872eb0b2410b531",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=7.1"
         },
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2020-07-14T12:35:20+00:00",
+        "time": "2020-10-23T14:02:19+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.18-dev"
+                "dev-main": "1.20-dev"
             },
             "thanks": {
                 "name": "symfony/polyfill",
