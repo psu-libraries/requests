@@ -1,31 +1,22 @@
-<tr class="grid-x">
-    <td class="medium-6 cell">
-        <div class="grid-x">
-            <div class="medium-10 cell">
-                <label for="transportation"
-                class="<?php echo $arrTransport['label']; ?>">
-                    Transportation
-                </label>
-            </div>
+<?php
 
-            <div class="medium-14 cell">
-                <input type="text"
-                       name="transportation"
-                       class="<?php echo $arrTransport['input']; ?>"
-                       id="transportation"
-                       size="5"
-                       max="10000"
-                       value="<?php echo $transportation; ?>"
-                       placeholder="00000.00">
-                <p class="help-text" id="transHelpText">
-                    (air, auto, train, taxi)
-                </p>
-            </div>
-            <label class="<?php echo $arrTransport['error']; ?>">
-                   <?php echo $arrTransport['errorMsg']; ?>
-            </label>
-        </div>
-    </td>
+$arrExpense = [
+    'labelText' => 'Tansportation',
+    'label' => $arrTransport['label'],
+    'id' => 'transportation',
+    'value' => $transportation,
+    'error' => $arrTransport['error'],
+    'errorMsg' => $arrTransport['errorMsg']
+];
+
+$help = '<p class="help-text" id="transHelpText">(air, auto, train, taxi)</p>';
+
+?>
+
+<tr class="grid-x">
+
+    <?php require 'pagelayout/templates/expenses.php'; ?>
+
     <td class="medium-18 cell">
         <p>If flying from airport other than your "home" airport, attach
         comparison.</p>

@@ -100,7 +100,6 @@ if ($total == 0):
    $total = number_format(0, 2, '.', '');
 endif;
 
-
 // TODO: enter file validation (maybe)
 
 // Validate the Expenses notes.

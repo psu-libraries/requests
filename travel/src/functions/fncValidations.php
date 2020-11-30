@@ -52,16 +52,15 @@ function valCarpool($value, $classes, $v, $invalid) {
 
 function valCostType($value, $classes, $v, $invalid) {
 
-    if (length($value) > 0) :
-        $val = $v::in('Cost Center', 'Internal Order')
-            ->validate($value);
+    if (!empty($value)) :
 
-        if ($val == false) :
+        if ($value != 'Cost Center' && $value != "Internal Order") :
             $classes['errorFlag'] = 1;
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['input'];
             $classes['error'] .= $invalid['error'];
             $classes['errorMsg'] = $invalid['errorMsg']['select'];
+
         endif;
     endif;
 
@@ -70,19 +69,28 @@ function valCostType($value, $classes, $v, $invalid) {
 
 function valCostNumber($value, $classes, $v, $invalid) {
 
-    if (length($value) > 0) :
-        $val::intVal()
-        ->positive()
-        ->max(999999999999)
-        ->validate($value);
+    $errorFlag = $arrClasses['errorFlag'];
 
-        if ($val === false) :
-            $classes['errorFlag'] = 1;
-            $classes['label'] .= $invalid['label'];
-            $classes['input'] .= $invalid['input'];
-            $classes['error'] .= $invalid['error'];
+    if (!empty($value)) :
+        if (is_numeric($value)) :
+            if ($value > 999999999999) :
+                $classes['errorMsg'] = "Not a valid cost number";
+                $errorFlag = 1;
+            endif;
+
+        else :
             $classes['errorMsg'] = $invalid['errorMsg']['number'];
+            $errorFlag = 1;
         endif;
+
+    endif;
+
+    if ($errorFlag === 1) :
+        $classes['errorFlag'] = 1;
+        $classes['label'] .= $invalid['label'];
+        $classes['input'] .= $invalid['input'];
+        $classes['error'] .= $invalid['error'];
+
     endif;
 
     return $classes;

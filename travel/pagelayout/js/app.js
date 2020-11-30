@@ -17,17 +17,44 @@ $(document).ready(function () {
    */
   function calcTotal(className) {
     var total = 0;
+
+    // Loop through all of the expenses text fields.
     $("." + className).each(function () {
 
       if ($(this).val() != '') {
+        // Set the raw value.
         var expVal = $(this).val();
 
-        expVal = expVal.replaceAll('$', '');
-        expVal = expVal.replaceAll(',', '');
+        // Create different ids for error purposes.
+        var idName = "#" + $(this).attr('id');
+        var labelId = "#" + $(this).attr('id') + "Label";
+        var errorId = idName + "Error";
 
-        var floatVal = parseFloat(expVal).toFixed(2);
+        // Check the raw value against this regular expression.
+        var regex = /^\$?((\d{1,2})?,?(\d{1,3})?)*(\.?(\d{1,2})?)?$/;
+        var numStr = expVal;
 
-        $(this).val(floatVal);
+        // Test if the raw value passed the regular expression test.
+        if (regex.test(numStr)) {
+
+          expVal = expVal.replaceAll('$', '');
+          expVal = expVal.replaceAll(',', '');
+
+          var floatVal = parseFloat(expVal).toFixed(2);
+          $(this).val(floatVal);
+
+        } else {
+          // Create a float value for "0" to be added to the total.
+          floatVal = parseFloat(0).toFixed(2);
+          // Assign the text box the raw value.
+          $(this).val(expVal);
+
+          // Add error classes to mark the error.
+          $(labelId).addClass('is-invalid-label');
+          $(idName).addClass('is-invalid-input');
+          $(errorId).addClass('is-visible');
+          $(errorId).text("Must be a number.");
+        }
 
         total += parseFloat(floatVal);
       }
@@ -80,8 +107,9 @@ $(document).ready(function () {
 
   /* ******************** FLEET RESERVATION ******************** */
 
-  if (document.getElementById('vehicle').value == '') {
-    $(".fleet").prop("readonly", true);
+  if ($("#vehicle").val() == '') {
+    $("#pickupId").addClass("hide");
+    $("#dropoffId").addClass("hide");
   }
 
   /**
@@ -90,29 +118,16 @@ $(document).ready(function () {
    */
   $("#vehicle").on("change", function () {
 
-    var vehicle = document.getElementById('vehicle').value;
+    if ($('#vehicle').val() == '') {
 
-    // If the vehicle field is empty, make the pick-up date/time and
-    // drop-off date/time fields readonly. Clear any value that may be in
-    // them. Hide the asterisk marking them as required fields.
-    if (vehicle == "") {
-      $(".fleet").prop("readonly", true);
       $(".fleet").val("");
-      $(".flreq").addClass("hide");
-      $(".fleet").removeAttr("required");
-
-      // If there were errors while a vehicle was selected, then remove all
-      // of the error messages.
-      $(".pickup").removeClass("is-visible");
-      $(".dropoff").removeClass("is-visible");
+      $("#pickupId").addClass("hide");
+      $("#dropoffId").addClass("hide");
 
     } else {
-      // If the vehicle field does have a value, make the pick=up date/time
-      // and drop-off date/time fields editable. Show the asterisk marking
-      // them as required fields.
-      $(".fleet").removeAttr("readonly");
-      $(".flreq").removeClass("hide");
-      $(".fleet").prop("required", true);
+
+      $("#pickupId").removeClass("hide");
+      $("#dropoffId").removeClass("hide");
     }
   });
 });

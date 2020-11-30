@@ -1,42 +1,23 @@
-<div class="grid-x">
-    <div class="medium-12 cell">
-        <label class="<?php echo $arrDepDate['label']; ?>">
-            Depart Date: <span class="required">*</span>
+<?php
 
-            <input type="text"
-                    name="departureDate"
-                    class="<?php echo $arrDepDate['input']; ?>"
-                    id="departureDate"
-                    value="<?php echo $departureDate; ?>"
-                    placeholder="mm/dd/yyyy"
-                    required>
+$arrDateTime = [
+    "legend" => "Departure",
+    "required" => true,
+    "asterisk" => "required",
+    "dateLabel" => $arrDepDate['label'],
+    "dateName" => "departureDate",
+    "dateInput" => $arrDepDate['input'],
+    "date" => $departureDate,
+    "dateError" => $arrDepDate['error'],
+    "dateMsg" => $arrDepDate['errorMsg'],
+    "timeLabel" => $arrDepTime['label'],
+    "timeName" => "departureTime",
+    "timeInput" => $arrDepTime['input'],
+    "time" => $departureTime,
+    "timeError" => $arrDepTime['error'],
+    "timeMsg" => $arrDepTime['errorMsg'],
+    "error" => $arrDeparture['error'],
+    "errorMsg" => $arrDeparture['errorMsg']
+];
 
-            <span class="<?php echo $arrDepDate['error']; ?>">
-                <?php echo $arrDepDate['errorMsg']; ?>
-            </span>
-        </label>
-    </div>
-
-    <div class="medium-12 cell">
-
-        <label class="<?php echo $arrDepTime['label']; ?>">
-            Depart Time: <span class="required">*</span>
-
-            <input type="text"
-                    name="departureTime"
-                    class="<?php echo $arrDepTime['input']; ?>"
-                    id="departureTime"
-                    value="<?php echo $departureTime; ?>"
-                    placeholder="01:01 PM"
-                    required>
-
-            <span class="<?php echo $arrDepTime['error']; ?>">
-                <?php echo $arrDepTime['errorMsg']; ?>
-            </span>
-        </label>
-    </div>
-
-    <span id="departureError" class="<?php echo $arrDeparture['error']; ?>">
-        <?php echo $arrDeparture['errorMsg']; ?>
-    </span>
-</div>
+require '../pagelayout/templates/dateTime.php';

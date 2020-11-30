@@ -12,21 +12,26 @@ class ComposerStaticInit73fb12dda412a765d313dab11c098347
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'Z' =>
+        array (
+            'Zurb\\' => 5,
+        ),
+        'S' =>
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'SlevomatCodingStandard\\' => 23,
         ),
-        'R' => 
+        'R' =>
         array (
             'Respect\\Validation\\' => 19,
             'Respect\\Stringifier\\' => 20,
+            'Respect\\' => 8,
         ),
-        'P' => 
+        'P' =>
         array (
             'PHPStan\\PhpDocParser\\' => 21,
         ),
-        'D' => 
+        'D' =>
         array (
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -37,43 +42,51 @@ class ComposerStaticInit73fb12dda412a765d313dab11c098347
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Zurb\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/foundation',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'SlevomatCodingStandard\\' => 
+        'SlevomatCodingStandard\\' =>
         array (
             0 => __DIR__ . '/..' . '/slevomat/coding-standard/SlevomatCodingStandard',
         ),
-        'Respect\\Validation\\' => 
+        'Respect\\Validation\\' =>
         array (
             0 => __DIR__ . '/..' . '/respect/validation/library',
         ),
-        'Respect\\Stringifier\\' => 
+        'Respect\\Stringifier\\' =>
         array (
             0 => __DIR__ . '/..' . '/respect/stringifier/src',
         ),
-        'PHPStan\\PhpDocParser\\' => 
+        'Respect\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/validation',
+        ),
+        'PHPStan\\PhpDocParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
-        'Doctrine\\DBAL\\' => 
+        'Doctrine\\DBAL\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL',
         ),
-        'Doctrine\\Common\\Cache\\' => 
+        'Doctrine\\Common\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
         ),
-        'Doctrine\\Common\\' => 
+        'Doctrine\\Common\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
         ),
-        'Doctrine\\' => 
+        'Doctrine\\' =>
         array (
             0 => __DIR__ . '/../..' . '/dbal',
         ),
-        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' =>
         array (
             0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
