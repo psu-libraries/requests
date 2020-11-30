@@ -42,9 +42,9 @@
                                 name="persTravel"
                                 class="<?php echo $arrPersTravel['input']; ?>"
                                 id="persTravelY"
-                                value="yes"
+                                value="Yes"
                                 <?php
-                                    if ($persTravel == 'yes') { echo 'checked';
+                                    if ($persTravel == 'Yes') { echo 'checked';
                                     }
                                     ?>>
                             <label for="persTravelY"
@@ -56,8 +56,8 @@
                                 name="persTravel"
                                 class="<?php echo $arrPersTravel['input']; ?>"
                                 id="persTravelN"
-                                value="no"
-                                <?php if ($persTravel == 'no') { echo 'checked';
+                                value="No"
+                                <?php if ($persTravel == 'No') { echo 'checked';
                                 } ?>
                                 required>
                             <label for="persTravelN"

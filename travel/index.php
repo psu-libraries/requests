@@ -12,13 +12,12 @@ $arrTabs = [
 ];
  require_once 'pagelayout/templates/header.php';
 
-include "src/database/dbExport.php";
+//include "src/database/dbExport.php";
 
 include "src/database/dbShowTables.php";
 
 //include "src/database/dbDeleteTables.php";
 
-//include "src/database/dbShowTables.php";
 
 $conn->close();
  require_once 'pagelayout/templates/footer.php';

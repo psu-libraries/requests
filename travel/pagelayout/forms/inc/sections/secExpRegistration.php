@@ -38,7 +38,7 @@
                             name="prepay"
                             class="<?php echo $arrPrepay['input']; ?> prepay"
                             id="prepayY"
-                            value="yes"
+                            value="Yes"
                             <?php if ($prepay == 'yes') { echo 'checked'; }?>>
 
                         <label for="prepayY" class="<?php echo $arrPrepay['label']; ?>">Yes</label>
@@ -47,7 +47,7 @@
                             name="prepay"
                             class="<?php echo $arrPrepay['input']; ?> prepay"
                             id="prepayN"
-                            value="no"
+                            value="No"
                             <?php if ($prepay == 'no') {echo 'checked'; }?>
                             required>
 

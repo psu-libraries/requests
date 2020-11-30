@@ -1,16 +1,11 @@
 <?php
-//echo "<pre>";
-//var_dump(get_declared_classes());
-//echo "</pre>";
-//die();
-
 
     $now = date('m/d/Y');
     $status = "Needs Reviewed";
     $errorMessage = [];
-displayArray($conn);
+
     // Insert data into the "request" table.
-    $sql = "INSERT INTO request (travel_type, requestor_name, access_id,"
+    $sql = "INSERT INTO TrRequests (travel_type, requestor_name, access_id,"
          . " department, submission_date, destination, departure_date,"
          . " departure_time, return_date, return_time, conference, sponsor,"
          . " member, notes)"
@@ -18,7 +13,7 @@ displayArray($conn);
 
     $req = $conn->prepare($sql);
 
-    $req->bind_param("sssssssssssssss", $travelType,$empName, $accessId, $department, $now, $destination, $departureDate, $departureTime, $returnDate, $returnTime, $conference, $sponsor, $member, $notes);
+    $req->bind_param("ssssssssssssss", $travelType, $empName, $accessId, $department, $now, $destination, $departureDate, $departureTime, $returnDate, $returnTime, $conference, $sponsor, $member, $notes);
 
     $req->execute();
     unset($sql);
@@ -30,22 +25,22 @@ displayArray($conn);
         array_push($errorMessage, "The system has encountered an error. Try again later.");
         $requestId = 0;
     endif;
-
+/*
     // If there is a value other than 0 for the requestId, then continue with
     // inserting into the other tables.
     if ($requestId > 0):
 
 // ********** EXPENSES TABLE
         // Insert data into the "expenses" table.
-        $sql = "INSERT INTO expenses (request_id, transportation,"
+        $sql = "INSERT INTO TrExpenses (request_id, transportation,"
              . " estimated_mileage, lodging, food, registration,"
-             . " prepay_registration, other, total, personal_travel, notes,"
-             . " date_added)"
-             . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+             . " prepay_registration, other, personal_travel, notes,"
+             . " date_entered)"
+             . " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         $exp = $conn->prepare($sql);
 
-        $exp->bind_param('ididddsddsss', $requestId, $transportation, $estMileage, $lodging, $food, $registration, $prepay, $other, $total, $persTravel, $expNotes, $now);
+        $exp->bind_param('ididddsdsss', $requestId, $transportation, $estMileage, $lodging, $food, $registration, $prepay, $other, $persTravel, $expNotes, $now);
 
         $exp->execute();
         unset ($sql);
@@ -62,14 +57,14 @@ displayArray($conn);
         // If the length of the "fleet" variable is greater than 0, then
         // insert the data into the "fleet" table.
         if(length($fleet) > 0):
-            $sql = "INSERT INTO fleet (request_id, vehicle, pickup_date,"
+            $sql = "INSERT INTO TrFleet (request_id, vehicle, pickup_date,"
                 . " pickup_time, dropoff_date, dropoff_time, carpooling,"
                 . " date_added)"
                 . "VALUES(?,?,?,?,?,?,?,?)";
 
             $flt = $conn->prepare($sql);
 
-            $flt->bind_param('isssssss',$requestId, $fleet, $pickupDate, $pickupTime, $dropoffDate, $dropoffTime, $carpool, $now);
+            $flt->bind_param('isssssss', $requestId, $fleet, $pickupDate, $pickupTime, $dropoffDate, $dropoffTime, $carpool, $now);
 
             $flt->execute();
             unset($sql);
@@ -80,7 +75,7 @@ displayArray($conn);
         // If the length of either "costType" or "costObjNumber" is greater
         // than 0, then insert the data into the "financials" table.
         if (length($costType) > 0 || length($costObjNumber) > 0):
-            $sql = "INSERT INTO financials (request_id, cost_type,"
+            $sql = "INSERT INTO TrFinancials (request_id, cost_type,"
                     . " cost_object_number, date_added)"
                     . "VALUES (?,?,?,?)";
 
@@ -94,13 +89,13 @@ displayArray($conn);
 
 // ********** APPROVAL WORKFLOW TABLE
        // Insert the data into the "approval_workflow" table.
-        $sql = "INSERT INTO approval_workflow (request_id, next_approver_id,"
-             . " approval_status, date_added)"
+        $sql = "INSERT INTO TrApprovalWorkflows (request_id, next_approver_id,"
+             . " approval_status, date_entered)"
              . " VALUES (?,?,?,?)";
 
         $app = $conn->prepare($sql);
 
-        $app->bind_param('isss', $requestId, $status, $nextApprover, $now);
+        $app->bind_param('isss', $requestId, $nextApprover, $status, $now);
 
         $app->execute();
         unset($sql);
@@ -110,7 +105,7 @@ displayArray($conn);
         // If there are any comments added in the "APPROVALS" section of the
         // form, insert them into the "approval_comments" table.
         if(length($comments) > 0):
-            $sql = "INSERT INTO approval_comments (request_id, comment,"
+            $sql = "INSERT INTO TrApprovalComments (request_id, comment,"
                  . " date_of_added)"
                  . " VALUES(?,?,?)";
 
@@ -125,8 +120,8 @@ displayArray($conn);
 
         // Validate file information and upload
         if (!empty($_FILES['files']['name'])):
-            require_once SRC . '/functions/fncFiles.php';
-            require_once SRC . '/inc/incUpload.php';
+            require_once 'src/functions/fncFiles.php';
+            require_once 'src/inc/incUpload.php';
         endif;
 
 
@@ -140,3 +135,5 @@ displayArray($conn);
 //        array_push($errorMessage, "The system has encountered an error. Try again later.");
         $conn->rollBack();
     endif;
+
+*/
