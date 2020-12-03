@@ -7,4 +7,5 @@ if(mysqli_connect_errno()):
     die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
 endif;
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $conn->autocommit(FALSE);

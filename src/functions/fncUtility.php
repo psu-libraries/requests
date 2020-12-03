@@ -395,7 +395,7 @@ function valCurrency($value, $classes, $v, $invalid)
     if (!empty($value)) :
         $errorFlag = $classes['errorFlag'];
 
-        if (is_float($value) === 0):
+        if (is_float($value) === false):
 
             $value = stringToCurrency($value);
 
@@ -422,7 +422,7 @@ function valCurrency($value, $classes, $v, $invalid)
                 $errorFlag = 1;
             endif;
         else:
-            $classes['errorMsg'] = $invalid['errorMsg']['number'];
+            $classes['errorMsg'] = $invalid['errorMsg']['number'] . "9999";
             $errorFlag = 1;
         endif;
 

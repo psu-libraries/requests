@@ -2,6 +2,7 @@
 $arrExpense = [
     'labelText' => 'Other',
     'label' => $arrOther['label'],
+    'input' => $arrOther['input'],
     'id' => 'other',
     'value' => $other,
     'error' => $arrOther['error'],

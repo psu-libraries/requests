@@ -11,7 +11,7 @@
             <div class="medium-14 cell">
                 <input type="text"
                        name="<?php echo $arrExpense['id'];?>"
-                       class="<?php echo $arrTransport['input']; ?>"
+                       class="<?php echo $arrExpense['input']; ?>"
                        id="<?php echo $arrExpense['id'];?>"
                        size="5"
                        max="10000"
@@ -32,3 +32,5 @@
                    <?php echo $arrExpense['errorMsg']; ?>
             </label>
     </td>
+<?php
+    unset($arrExpense);

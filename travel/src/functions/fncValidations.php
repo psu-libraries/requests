@@ -2,11 +2,15 @@
 
 function valTravelType($value, $classes, $v, $invalid) {
 
-    $val = $v::notEmpty()
-        ->in('Administrative', 'Professional')
-        ->validate($value);
+    if ($value === "Administrative"):
+        $val = true;
+    endif;
 
-    if ($val == false) :
+    if ($value === "Professional"):
+        $val = true;
+    endif;
+
+    if ($val === false) :
         $classes['label'] .= $invalid['label'];
         $classes['input'] .= $invalid['input'];
         $classes['error'] .= $invalid['error'];

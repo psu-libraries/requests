@@ -9,8 +9,6 @@
             </div>
 
             <div class="medium-14 cell">
-
-
                     <input type="text"
                            name="total"
                            id="total"
@@ -18,14 +16,41 @@
                            value="<?php echo $total; ?>"
                            class="text-right"
                            disabled>
-
             </div>
 
         </div>
     </td>
     <td class="medium-18 cell">
 
-        <?php require 'pagelayout/forms/inc/sections/secPersTravel.php';?>
+        <?php
+            $mainLabel = "Is personal travel combined with this trip?";
+            $error = $arrPersTravel['error'];
+            $errorMsg = $arrPersTravel['errorMsg'];
+            $required = true;
+
+            $arrRadios = [
+                0 => [
+                    'label' => $arrPersTravel['label'],
+                    'name' => 'persTravel',
+                    'input' => $arrPersTravel['input'],
+                    'id' => 'persTravelY',
+                    'value' => 'Yes',
+                    'var' => $persTravel,
+                    'labelText' => 'Yes'
+                ],
+                1 => [
+                    'label' => $arrPersTravel['label'],
+                    'name'  => 'persTravel',
+                    'input' => $arrPersTravel['input'],
+                    'id' => 'persTravelN',
+                    'value' => 'No',
+                    'var' => $persTravel,
+                    'labelText' => 'No'
+                ]
+            ];
+
+            require $root . '/pagelayout/templates/radioButtons.php';
+        ?>
 
         <div class="grid-containter">
             <div class="grid-x">

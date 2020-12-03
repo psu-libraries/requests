@@ -6,7 +6,7 @@
                   class="<?php echo $arrNotes['input']; ?>"
                   id="<?php echo $arrNotes['id'];?>"
                   maxlength="500"
-                  rows="1"><?php echo $notes; ?></textarea>
+                  rows="1"><?php echo $arrNotes['value']; ?></textarea>
     </label>
 
     <label class="<?php echo $arrNotes['error']; ?>">

@@ -3,7 +3,34 @@
 
     <div class="grid-x grid-padding-x">
 
-        <?php require 'pagelayout/forms/inc/sections/secCostType.php'; ?>
+        <?php
+        $mainLabel = "Cost Object Type";
+        $error = $arrCostType['error'];
+        $errorMsg = $arrCostType['errorMst'];
+
+        $arrRadios = [
+            0 => [
+                'label' => $arrCostType['label'],
+                'name' => "costType",
+                'input' => $arrCostType['input'],
+                'id' => "cc",
+                'value' => "Cost Center",
+                'var' => $costType,
+                'labelText' => "Cost Center"
+            ],
+            1 => [
+                'label' => $arrCostType['label'],
+                'name' => "costType",
+                'input' => $arrCostType['input'],
+                'id' => "io",
+                'value' => "Internal Order",
+                'var' => $costType,
+                'labelText' => "Internal Order"
+            ]
+        ];
+
+        require $root . '/pagelayout/templates/radioButtons.php';
+        ?>
 
         <div class="medium-shrink cell float-center">
             <div class="grid-containter">

@@ -54,9 +54,19 @@
     <?php endif;?>
 
     <div class="grid-x">
+        <?php
+            $arrNotes = [
+                'label' => $arrComments['label'],
+                'labelText' => 'Comments:',
+                'input' => $arrComments['input'],
+                'id' => 'comments',
+                'value' => $comments,
+                'error' => $arrComments['error'],
+                'errorMsg' => $arrComments['errorMsg']
+            ];
 
-        <?php require 'pagelayout/forms/inc/sections/secAppComments.php';?>
-
+            require $root . '/pagelayout/templates/notes.php';
+        ?>
     </div>
 
 </fieldset>

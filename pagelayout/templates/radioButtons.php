@@ -32,10 +32,13 @@
 
                 <?php endfor; ?>
 
-                <label class="<?php echo $arrBools['error']; ?>">
-                    <?php echo $arrBools['errorMsg']; ?>
+                <label class="<?php echo $error; ?>">
+                    <?php echo $errorMsg; ?>
                 </label>
             </div>
         </div>
     </div>
 </div>
+
+<?php
+    unset($arrRadios);

@@ -3,6 +3,7 @@
 $arrExpense = [
     'labelText' => 'Food',
     'label' => $arrFood['label'],
+    'input' => $arrFood['input'],
     'id' => 'food',
     'value' => $food,
     'error' => $arrFood['error'],

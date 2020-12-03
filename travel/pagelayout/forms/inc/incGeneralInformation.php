@@ -36,10 +36,54 @@
         </div>
 
         <?php
-            require_once 'pagelayout/forms/inc/sections/secDeparture.php';
-            require_once 'pagelayout/forms/inc/sections/secReturn.php';
-        ?>
+            // Departure date/time fields
+            $arrDateTime = [
+                "legend" => "Departure",
+                "required" => true,
+                "asterisk" => "required",
+                "dateLabel" => $arrDepDate['label'],
+                "dateName" => "departureDate",
+                "dateInput" => $arrDepDate['input'],
+                "date" => $departureDate,
+                "dateError" => $arrDepDate['error'],
+                "dateMsg" => $arrDepDate['errorMsg'],
+                "timeLabel" => $arrDepTime['label'],
+                "timeName" => "departureTime",
+                "timeInput" => $arrDepTime['input'],
+                "time" => $departureTime,
+                "timeError" => $arrDepTime['error'],
+                "timeMsg" => $arrDepTime['errorMsg'],
+                "error" => $arrDeparture['error'],
+                "errorMsg" => $arrDeparture['errorMsg']
+            ];
 
+            require $root . '/pagelayout/templates/dateTime.php';
+            unset($arrDateTime);
+
+            // Return date/time fields
+            $arrDateTime = [
+                "legend" => "Return",
+                "required" => true,
+                "asterisk" => "required",
+                "dateLabel" => $arrRetDate['label'],
+                "dateName" => "returnDate",
+                "dateInput" => $arrRetDate['input'],
+                "date" => $returnDate,
+                "dateError" => $arrRetDate['error'],
+                "dateMsg" => $arrRetDate['errorMsg'],
+                "timeLabel" => $arrRetTime['label'],
+                "timeName" => "returnTime",
+                "timeInput" => $arrRetTime['input'],
+                "time" => $returnTime,
+                "timeError" => $arrRetTime['error'],
+                "timeMsg" => $arrRetTime['errorMsg'],
+                "error" => $arrReturn['error'],
+                "errorMsg" => $arrReturn['errorMsg']
+            ];
+
+            require $root . '/pagelayout/templates/dateTime.php';
+            unset($arrDateTime);
+        ?>
     </div>
 
     <div class="grid-x">
@@ -62,12 +106,56 @@
             </label>
         </div>
 
-        <div class="medium-4 cell">
-            <?php require 'pagelayout/forms/inc/sections/secMember.php';?>
-        </div>
+        <div class="medium-8 cell">
+            <br>
+            <?php
+                $mainLabel = "Are you a member?";
+                $error = $arrMember['error'];
+                $errorMsg = $arrMember['errorMsg'];
+                $required = true;
 
-        <div class="grid-x">
-        <?php require 'pagelayout/forms/inc/sections/secGiNotes.php';?>
+                $arrRadios = [
+                    0 => [
+                        'label' => $arrMember['label'],
+                        'name' => 'member',
+                        'input' => $arrMember['input'],
+                        'id' => 'memberY',
+                        'value' => 'Yes',
+                        'var' => $member,
+                        'labelText' => 'Yes'
+                    ],
+                    1 => [
+                        'label' => $arrMember['label'],
+                        'name'  => 'member',
+                        'input' => $arrPersTravel['input'],
+                        'id' => 'memberN',
+                        'value' => 'No',
+                        'var' => $member,
+                        'labelText' => 'No'
+                    ]
+                ];
+
+                require $root . '/pagelayout/templates/radioButtons.php';
+                unset($arrRadios);
+            ?>
+        </div>
+    </div>
+
+    <div class="grid-x">
+        <div class="cell">
+            <?php
+                $arrNotes = [
+                    'label' => $arrGiNotes['label'],
+                    'labelText' => 'Roles, Goals, Attendance, and other additional helpful notes:',
+                    'input' => $arrGiNotes['input'],
+                    'id' => 'gINotes',
+                    'value' => $gINotes,
+                    'error' => $arrGiNotes['error'],
+                    'errorMsg' => $arrGiNotes['errorMsg']
+                ];
+                require $root . '/pagelayout/templates/notes.php';
+                unset($arrNotes);
+            ?>
         </div>
     </div>
 </fieldset>

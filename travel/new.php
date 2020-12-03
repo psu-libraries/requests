@@ -2,6 +2,15 @@
 
 session_start();
 
+$host = $_SERVER['HTTP_HOST'];
+$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+$extra = "view.php";
+
+echo "host: " . $host . "<br>";
+echo "uri: " . $uri . "<br>";
+echo "extra: " . $extra . "<br>";
+echo "url: " . $host.$uri.'/'.$extra;
+
 $appName = "Travel Request";
 
 $arrTabs = [
@@ -23,7 +32,7 @@ if (isset($_POST['submit'])) :
     require_once 'src/database/connection.php';
 
     // Sanitize all of the values in the $_POST array.
-    include_once '../src/functions/fncSanitizer.php';
+    include_once $root . '/src/functions/fncSanitizer.php';
 
     // Validation functions specific for travel request.
     require_once 'src/functions/fncValidations.php';
@@ -33,11 +42,16 @@ if (isset($_POST['submit'])) :
 
         if ($errorFlag === 0): // Default value set in validations.php
             // Script that inserts data into the database.
-            require_once 'src/database/insertRequest.php';
+//            require_once 'src/database/insertRequest.php';
+
+            if ($errorFlag === 0):
+                header("Location: $host.$uri.'/view.php?id=$request_id'");
+                exit;
+            endif;
         endif;
 
     // Displays error and success messages
-    include_once '../src/inc/incErrorSuccessMessage.php';
+    include_once $root . '/src/inc/incErrorSuccessMessage.php';
 endif;
 
 require_once 'pagelayout/forms/frmTravelRequest.php';

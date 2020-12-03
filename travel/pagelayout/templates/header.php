@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if (!isset($_SESSION['devEmail'])):
       $_SESSION['devEmail'] = 'wse1@psu.edu';
@@ -9,6 +10,8 @@ if (!isset($_SESSION['user']) && isset($_SERVER['REMOTE_USER'])):
 elseif (!isset($_SESSION['user']) && !isset($_SESSION['REMOTE_USER'])): // For development only. Remove for production.
       $_SESSION['user'] = 'wse1';
 endif;
+
+$root = $_SERVER['DOCUMENT_ROOT'];
 ?>
 
 <!DOCTYPE html>
@@ -67,8 +70,8 @@ endif;
             class="grid-container l-main" tabindex="0">
 <?php
 
-        require_once "../vendor/autoload.php";
-        require_once "../src/functions/fncUtility.php";
+        require_once $root . "/vendor/autoload.php";
+        require_once $root . "/src/functions/fncUtility.php";
 
         require_once "src/database/connection.php";
         require_once "src/database/connect.php";

@@ -14,9 +14,11 @@ $arrTabs = [
 
 //include "src/database/dbExport.php";
 
+//include "src/database/dbDeleteTables.php";
+
 include "src/database/dbShowTables.php";
 
-//include "src/database/dbDeleteTables.php";
+//include "src/database/dbTruncateTables.php";
 
 
 $conn->close();

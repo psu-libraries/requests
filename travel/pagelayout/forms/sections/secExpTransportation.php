@@ -3,6 +3,7 @@
 $arrExpense = [
     'labelText' => 'Tansportation',
     'label' => $arrTransport['label'],
+    'input' => $arrTransport['input'],
     'id' => 'transportation',
     'value' => $transportation,
     'error' => $arrTransport['error'],
@@ -39,7 +40,7 @@ $help = '<p class="help-text" id="transHelpText">(air, auto, train, taxi)</p>';
                             <div class="input-group">
                                 <input type="text"
                                        name="estMileage"
-                                       class="<?php echo $arrEstMiles['input']; ?>"
+                                       class="<?php echo $arrEstMiles['input']; ?> text-right"
                                        id="estMileage"
                                        maxlength="5"
                                        value="<?php echo $estMileage; ?>"

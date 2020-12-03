@@ -1,15 +1,17 @@
 <?php
 
-    $now = date('m/d/Y');
-    $status = "Needs Reviewed";
-    $errorMessage = [];
+$now = date('m/d/Y');
+$status = "Needs Reviewed";
+$errorMessage = [];
+$insertFlag = 0;
 
+try {
     // Insert data into the "request" table.
     $sql = "INSERT INTO TrRequests (travel_type, requestor_name, access_id,"
-         . " department, submission_date, destination, departure_date,"
-         . " departure_time, return_date, return_time, conference, sponsor,"
-         . " member, notes)"
-         . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        . " department, submission_date, destination, departure_date,"
+        . " departure_time, return_date, return_time, conference, sponsor,"
+        . " member, notes)"
+        . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     $req = $conn->prepare($sql);
 
@@ -17,26 +19,30 @@
 
     $req->execute();
     unset($sql);
+} catch (mysqli_sql_exception $e) {
+    $insertFlag += 1;
+}
 
-    // Check to see if the data was inserted into the "request" table.
-    if (isset($req->insert_id)):
-        $requestId = $req->insert_id;
-    else:
-        array_push($errorMessage, "The system has encountered an error. Try again later.");
-        $requestId = 0;
-    endif;
-/*
-    // If there is a value other than 0 for the requestId, then continue with
-    // inserting into the other tables.
-    if ($requestId > 0):
+// Check to see if the data was inserted into the "request" table.
+if (isset($req->insert_id)):
+    $requestId = $req->insert_id;
+else:
+    array_push($errorMessage, "The system has encountered an error. Try again later.");
+    $requestId = 0;
+endif;
+
+// If there is a value other than 0 for the requestId, then continue with
+// inserting into the other tables.
+if ($requestId > 0):
 
 // ********** EXPENSES TABLE
-        // Insert data into the "expenses" table.
+    // Insert data into the "expenses" table.
+    try {
         $sql = "INSERT INTO TrExpenses (request_id, transportation,"
-             . " estimated_mileage, lodging, food, registration,"
-             . " prepay_registration, other, personal_travel, notes,"
-             . " date_entered)"
-             . " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            . " estimated_mileage, lodging, food, registration,"
+            . " prepay_registration, other, personal_travel, notes,"
+            . " date_entered)"
+            . " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         $exp = $conn->prepare($sql);
 
@@ -44,19 +50,22 @@
 
         $exp->execute();
         unset ($sql);
+    } catch (mysqli_sql_exception $e) {
+        $insertFlag += 1;
+    }
 
-        // Check to see if the data was inserted into the "request" table.
-        if (isset($exp->insert_id)):
-            $expId = $exp->insert_id;
-        else:
-            array_push($errorMessage, "The system has encountered an error. Try again later.");
-            $expId = 0;
-        endif;
+    // Check to see if the data was inserted into the "request" table.
+    if (isset($exp->insert_id)):
+        $expId = $exp->insert_id;
+    else:
+        $expId = 0;
+    endif;
 
 // ********** FLEET TABLE
-        // If the length of the "fleet" variable is greater than 0, then
-        // insert the data into the "fleet" table.
-        if(length($fleet) > 0):
+    // If the length of the "fleet" variable is greater than 0, then
+    // insert the data into the "fleet" table.
+    if(length($fleet) > 0):
+        try {
             $sql = "INSERT INTO TrFleet (request_id, vehicle, pickup_date,"
                 . " pickup_time, dropoff_date, dropoff_time, carpooling,"
                 . " date_added)"
@@ -68,15 +77,19 @@
 
             $flt->execute();
             unset($sql);
-        endif;
+        } catch (mysqli_sql_exception $e) {
+            $insertFlag += 1;
+        }
+    endif;
 
 // ********** FINANCIALS TABLE
 
-        // If the length of either "costType" or "costObjNumber" is greater
-        // than 0, then insert the data into the "financials" table.
-        if (length($costType) > 0 || length($costObjNumber) > 0):
+    // If the length of either "costType" or "costObjNumber" is greater
+    // than 0, then insert the data into the "financials" table.
+    if (length($costType) > 0 || length($costObjNumber) > 0):
+        try {
             $sql = "INSERT INTO TrFinancials (request_id, cost_type,"
-                    . " cost_object_number, date_added)"
+                    . " cost_object_number, date_entered)"
                     . "VALUES (?,?,?,?)";
 
             $fin = $conn->prepare($sql);
@@ -85,10 +98,14 @@
 
             $fin->execute();
             unset($sql);
-        endif;
+        } catch (mysqli_sql_exception $e) {
+            $insertFlag += 1;
+        }
+    endif;
 
 // ********** APPROVAL WORKFLOW TABLE
-       // Insert the data into the "approval_workflow" table.
+    // Insert the data into the "approval_workflow" table.
+    try {
         $sql = "INSERT INTO TrApprovalWorkflows (request_id, next_approver_id,"
              . " approval_status, date_entered)"
              . " VALUES (?,?,?,?)";
@@ -99,14 +116,18 @@
 
         $app->execute();
         unset($sql);
+    } catch (mysqli_sql_exception $e) {
+        $insertFlag += 1;
+    }
 
 // ********** APPROVAL COMMENTS TABLE
 
-        // If there are any comments added in the "APPROVALS" section of the
-        // form, insert them into the "approval_comments" table.
-        if(length($comments) > 0):
-            $sql = "INSERT INTO TrApprovalComments (request_id, comment,"
-                 . " date_of_added)"
+    // If there are any comments added in the "APPROVALS" section of the
+    // form, insert them into the "approval_comments" table.
+    if(length($comments) > 0):
+        try {
+            $sql = "INSERT INTO TrApprovalComments (request_id, comments,"
+                 . " date_entered)"
                  . " VALUES(?,?,?)";
 
             $apc = $conn->prepare($sql);
@@ -115,25 +136,25 @@
 
             $apc->execute();
             unset($sql);
-
-        endif;
-
-        // Validate file information and upload
-        if (!empty($_FILES['files']['name'])):
-            require_once 'src/functions/fncFiles.php';
-            require_once 'src/inc/incUpload.php';
-        endif;
-
-
+        } catch (mysqli_sql_exception $e) {
+            $insertFlag += 1;
+        }
     endif;
 
-    // Display the correct message at the top of the form.
-    if (count($errorMessage) == 0):
-        $conn->commit();
-        $successMessage = "Your request has been successfully submitted.";
-    else:
-//        array_push($errorMessage, "The system has encountered an error. Try again later.");
-        $conn->rollBack();
+    // Validate file information and upload
+    if (!empty($_FILES['files']['name'])):
+        require_once 'src/functions/fncFiles.php';
+        require_once 'src/inc/incUpload.php';
     endif;
 
-*/
+endif;
+
+// Display the correct message at the top of the form.
+if ($insertFlag === 0):
+    $conn->commit();
+else:
+    $conn->rollBack();
+    $errorFlag = 2;
+endif;
+
+$conn->close();

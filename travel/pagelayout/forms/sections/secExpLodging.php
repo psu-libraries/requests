@@ -1,7 +1,8 @@
 <?php
 $arrExpense = [
     'labelText' => 'Lodging',
-    'label' => $arrTransport['label'],
+    'label' => $arrLodging['label'],
+    'input' => $arrLodging['input'],
     'id' => 'lodging',
     'value' => $lodging,
     'error' => $arrLodging['error'],

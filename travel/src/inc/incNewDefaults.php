@@ -23,7 +23,7 @@
     $returnTime = '';
     $conference = '';
     $sponsor = '';
-    $member = '';
+    $member = 'No';
     $gINotes = '';
 
     // ***** EXPENSES

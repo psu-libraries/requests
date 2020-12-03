@@ -12,12 +12,12 @@
         <tbody>
 
             <?php
-            require 'pagelayout/forms/inc/sections/secExpTransportation.php';
-            require 'pagelayout/forms/inc/sections/secExpLodging.php';
-            require 'pagelayout/forms/inc/sections/secExpFood.php';
-            require 'pagelayout/forms/inc/sections/secExpRegistration.php';
-            require 'pagelayout/forms/inc/sections/secExpOther.php';
-            require 'pagelayout/forms/inc/sections/secExpTotal.php';
+            require 'pagelayout/forms/sections/secExpTransportation.php';
+            require 'pagelayout/forms/sections/secExpLodging.php';
+            require 'pagelayout/forms/sections/secExpFood.php';
+            require 'pagelayout/forms/sections/secExpRegistration.php';
+            require 'pagelayout/forms/sections/secExpOther.php';
+            require 'pagelayout/forms/sections/secExpTotal.php';
             ?>
         </tbody>
     </table>
@@ -52,7 +52,19 @@
 
     <div class="grid-x">
 
-    <?php require 'pagelayout/forms/inc/sections/secExpNotes.php';?>
+    <?php
+        $arrNotes = [
+            'label' => $arrExpNotes['label'],
+            'labelText' => 'Notes:',
+            'input' => $arrExpNotes['input'],
+            'id' => 'expNotes',
+            'value' => $expNotes,
+            'error' => $arrExpNotes['error'],
+            'errorMsg' => $arrExpNotes['errorMsg']
+        ];
+
+        require $root . '/pagelayout/templates/notes.php';
+    ?>
 
     </div>
 

@@ -28,8 +28,53 @@
         </div>
 
         <?php
-            require_once 'pagelayout/forms/inc/sections/secPickup.php';
-            require_once 'pagelayout/forms/inc/sections/secDropoff.php';
+        // Pickup date/time
+        $arrDateTime = [
+            "id" => "pickupId",
+            "legend" => "Pickup",
+            'required' => false,
+            "asterisk" => "",
+            "dateLabel" => $arrPickupDate['label'],
+            "dateName" => "pickupDate",
+            "dateInput" => $arrPickupDate['input'],
+            "date" => $pickupDate,
+            "dateError" => $arrPickupDate['error'],
+            "dateMsg" => $arrPickupDate['errorMsg'],
+            "timeLabel" => $arrPickupTime['label'],
+            "timeName" => "pickupTime",
+            "timeInput" => $arrPickupTime['input'],
+            "time" => $pickupTime,
+            "timeError" => $arrPickupTime['error'],
+            "timeMsg" => $arrPickupTime['errorMsg'],
+            "error" => $arrPickup['error'],
+            "errorMsg" => $arrPickup['errorMsg']
+        ];
+
+        require $root . '/pagelayout/templates/dateTime.php';
+
+        // Dropoff date/time
+        $arrDateTime = [
+            "id" => "dropoffId",
+            "legend" => "Dropoff",
+            "required" => false,
+            "asterisk" => "",
+            "dateLabel" => $arrDropoffDate['label'],
+            "dateName" => "dropoffDate",
+            "dateInput" => $arrDropoffDate['input'],
+            "date" => $dropoffDate,
+            "dateError" => $arrDropoffDate['error'],
+            "dateMsg" => $arrDropoffDate['errorMsg'],
+            "timeLabel" => $arrDropoffTime['label'],
+            "timeName" => "dropoffTime",
+            "timeInput" => $arrDropoffTime['input'],
+            "time" => $dropoffTime,
+            "timeError" => $arrDropoffTime['error'],
+            "timeMsg" => $arrDropoffTime['errorMsg'],
+            "error" => $arrDropoff['error'],
+            "errorMsg" => $arrDropoff['errorMsg']
+        ];
+
+        require $root . '/pagelayout/templates/dateTime.php';
         ?>
     </div>
 

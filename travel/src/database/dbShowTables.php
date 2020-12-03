@@ -19,7 +19,7 @@ $sql = "SHOW TABLES";
         <th>Key</th>
         <th>Default</th>
         <th>Increment</th>
-        <?php for ($b = 0; $b < count($show); $b++): ?>
+        <?php for ($b = 0; $b < count($showa); $b++): ?>
             <tr>
                 <td><?php echo $showa[$b][0]; ?></td>
                 <td class="text-center"><?php echo $showa[$b][1]; ?></td>
@@ -36,7 +36,8 @@ $sql = "SHOW TABLES";
     </tr>
  </table>
 <?php
-unset($sqla);
-            unset($resultsa);
-            unset($showa);
+    unset($sqla);
+    unset($resultsa);
+    unset($showa);
+
  endfor;
