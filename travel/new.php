@@ -6,10 +6,10 @@ $host = $_SERVER['HTTP_HOST'];
 $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $extra = "view.php";
 
-echo "host: " . $host . "<br>";
-echo "uri: " . $uri . "<br>";
-echo "extra: " . $extra . "<br>";
-echo "url: " . $host.$uri.'/'.$extra;
+//echo "host: " . $host . "<br>";
+//echo "uri: " . $uri . "<br>";
+//echo "extra: " . $extra . "<br>";
+//echo "url: " . $host.$uri.'/'.$extra;
 
 $appName = "Travel Request";
 

@@ -34,7 +34,7 @@
 
         <div class="hide-for-small-only medium-auto cell">&nbsp;</div>
 
-    <?php else: ?>
+    <?php elseif ($_SERVER['PHP_SELF'] == '/travel/modify.php'): ?>
       <div class="hide-for-small-only medium-6 cell">&nbsp;</div>
 
       <div class="medium-4 cell">
