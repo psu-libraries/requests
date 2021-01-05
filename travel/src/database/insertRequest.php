@@ -5,31 +5,46 @@ $status = "Needs Reviewed";
 $errorMessage = [];
 $insertFlag = 0;
 
+if ((!isset($nextApprover)) || (isset($nextApprover) && length($nextApprover) === 0)):
+    $nextApprover = 'BusOff';
+endif;
+
+$conn->beginTransaction();
 try {
     // Insert data into the "request" table.
     $sql = "INSERT INTO TrRequests (travel_type, requestor_name, access_id,"
         . " department, submission_date, destination, departure_date,"
         . " departure_time, return_date, return_time, conference, sponsor,"
         . " member, notes)"
-        . " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        . " VALUES (:traveltype, :requestorname, :accessid, :department, "
+        . " :submissiondate, :destination, :departuredate, :departuretime, "
+        . " :returndate, :returntime, :conference, :sponsor, :member, :notes)";
 
     $req = $conn->prepare($sql);
 
-    $req->bind_param("ssssssssssssss", $travelType, $empName, $accessId, $department, $now, $destination, $departureDate, $departureTime, $returnDate, $returnTime, $conference, $sponsor, $member, $notes);
+    $req->bindParam(':traveltype', $travelType);
+    $req->bindParam(':requestorname', $empName);
+    $req->bindParam(':accessid', $_SESSION['user']);
+    $req->bindParam(':department', $department);
+    $req->bindParam(':submissiondate', $now);
+    $req->bindParam(':destination', $destination);
+    $req->bindParam(':departuredate', $departureDate);
+    $req->bindParam(':departuretime', $departureTime);
+    $req->bindParam(':returndate', $returnDate);
+    $req->bindParam(':returntime', $returnTime);
+    $req->bindParam(':conference', $conference);
+    $req->bindParam(':sponsor', $sponsor);
+    $req->bindParam(':member', $member);
+    $req->bindParam(':notes', $gINotes);
 
     $req->execute();
     unset($sql);
-} catch (mysqli_sql_exception $e) {
+
+    $requestId = $conn->lastInsertId();
+
+} catch (PDOException $e) {
     $insertFlag += 1;
 }
-
-// Check to see if the data was inserted into the "request" table.
-if (isset($req->insert_id)):
-    $requestId = $req->insert_id;
-else:
-    array_push($errorMessage, "The system has encountered an error. Try again later.");
-    $requestId = 0;
-endif;
 
 // If there is a value other than 0 for the requestId, then continue with
 // inserting into the other tables.
@@ -42,24 +57,29 @@ if ($requestId > 0):
             . " estimated_mileage, lodging, food, registration,"
             . " prepay_registration, other, personal_travel, notes,"
             . " date_entered)"
-            . " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            . " VALUES (:requestid, :transportation, :estimatedmileage,"
+            . " :lodging, :food, :registration, :prepayregistration, :other,"
+            . " :personaltravel, :notes, :dateentered)";
 
         $exp = $conn->prepare($sql);
 
-        $exp->bind_param('ididddsdsss', $requestId, $transportation, $estMileage, $lodging, $food, $registration, $prepay, $other, $persTravel, $expNotes, $now);
+        $exp->bindParam(':requestid', $requestId);
+        $exp->bindParam(':transportation', $transportation);
+        $exp->bindParam(':estimatedmileage', $estMileage);
+        $exp->bindParam(':lodging', $lodging);
+        $exp->bindParam(':food', $food);
+        $exp->bindParam(':registration', $registration);
+        $exp->bindParam(':prepayregistration', $prepay);
+        $exp->bindParam(':other', $other);
+        $exp->bindParam(':personaltravel', $persTravel);
+        $exp->bindParam(':notes', $expNotes);
+        $exp->bindParam(':dateentered', $now);
 
         $exp->execute();
         unset ($sql);
-    } catch (mysqli_sql_exception $e) {
+    } catch (PDOException $e) {
         $insertFlag += 1;
     }
-
-    // Check to see if the data was inserted into the "request" table.
-    if (isset($exp->insert_id)):
-        $expId = $exp->insert_id;
-    else:
-        $expId = 0;
-    endif;
 
 // ********** FLEET TABLE
     // If the length of the "fleet" variable is greater than 0, then
@@ -68,16 +88,24 @@ if ($requestId > 0):
         try {
             $sql = "INSERT INTO TrFleet (request_id, vehicle, pickup_date,"
                 . " pickup_time, dropoff_date, dropoff_time, carpooling,"
-                . " date_added)"
-                . "VALUES(?,?,?,?,?,?,?,?)";
+                . " date_entered)"
+                . "VALUES(:requestid, :vehicle, :pickupdate, :pickuptime, "
+                . ":dropoffdate, :dropofftime, :carpooling, :dateentered)";
 
             $flt = $conn->prepare($sql);
 
-            $flt->bind_param('isssssss', $requestId, $fleet, $pickupDate, $pickupTime, $dropoffDate, $dropoffTime, $carpool, $now);
+            $flt->bindParam(':requestid', $requestId);
+            $flt->bindParam(':vehicle', $fleet);
+            $flt->bindParam(':pickupdate', $pickupDate);
+            $flt->bindParam(':pickuptime', $pickupTime);
+            $flt->bindParam(':dropoffdate', $dropoffDate);
+            $flt->bindParam(':dropofftime', $dropoffTime);
+            $flt->bindParam(':carpooling', $carpool);
+            $flt->bindParam(':dateentered', $now);
 
             $flt->execute();
             unset($sql);
-        } catch (mysqli_sql_exception $e) {
+        } catch (PDOException $e) {
             $insertFlag += 1;
         }
     endif;
@@ -88,35 +116,46 @@ if ($requestId > 0):
     // than 0, then insert the data into the "financials" table.
     if (length($costType) > 0 || length($costObjNumber) > 0):
         try {
-            $sql = "INSERT INTO TrFinancials (request_id, cost_type,"
-                    . " cost_object_number, date_entered)"
-                    . "VALUES (?,?,?,?)";
+            $sql = "INSERT INTO TrFinancials (request_id, cost_type, "
+                    . "cost_object_number, date_entered) "
+                    . "VALUES (:requestid, :costtype, :costobjectnumber, "
+                    . ":dateentered)";
 
             $fin = $conn->prepare($sql);
 
-            $fin->bind_param('isis', $requestId, $costType, $costObjNumber, $now);
+            $fin->bindParam(':requestid', $requestId);
+            $fin->bindParam(':costtype', $costType);
+            $fin->bindParam(':costobjectnumber', $costObjNumber);
+            $fin->bindParam(':dateentered', $now);
 
             $fin->execute();
             unset($sql);
-        } catch (mysqli_sql_exception $e) {
+        } catch (PDOException $e) {
             $insertFlag += 1;
         }
     endif;
 
 // ********** APPROVAL WORKFLOW TABLE
     // Insert the data into the "approval_workflow" table.
+
+
     try {
-        $sql = "INSERT INTO TrApprovalWorkflows (request_id, next_approver_id,"
+        $sql = "INSERT INTO TrApprovalWorkflows (request_id, approver_id, next_approver_id,"
              . " approval_status, date_entered)"
-             . " VALUES (?,?,?,?)";
+             . " VALUES (:requestid, :approverid, :nextapproverid, :approvalstatus,"
+             . " :dateentered)";
 
         $app = $conn->prepare($sql);
 
-        $app->bind_param('isss', $requestId, $nextApprover, $status, $now);
+        $app->bindParam(':requestid', $requestId);
+        $app->bindParam(':approverid', $_SESSION['user']);
+        $app->bindParam(':nextapproverid', $nextApprover);
+        $app->bindParam(':approvalstatus', $status);
+        $app->bindParam(':dateentered', $now);
 
         $app->execute();
         unset($sql);
-    } catch (mysqli_sql_exception $e) {
+    } catch (PDOException $e) {
         $insertFlag += 1;
     }
 
@@ -126,35 +165,37 @@ if ($requestId > 0):
     // form, insert them into the "approval_comments" table.
     if(length($comments) > 0):
         try {
-            $sql = "INSERT INTO TrApprovalComments (request_id, comments,"
-                 . " date_entered)"
-                 . " VALUES(?,?,?)";
+            $sql = "INSERT INTO TrApprovalComments (request_id, commenter_id, "
+                . "comments, date_entered)"
+                . " VALUES(:requestid, :commenterid, :comments, :dateentered)";
 
             $apc = $conn->prepare($sql);
 
-            $apc->bind_param('iss', $requestId, $comments, $now);
+            $apc->bindParam(':requestid', $requestId);
+            $apc->bindParam(':commenterid', $_SESSION['user']);
+            $apc->bindParam(':comments', $comments);
+            $apc->bindParam(':dateentered', $now);
 
             $apc->execute();
             unset($sql);
-        } catch (mysqli_sql_exception $e) {
+        } catch (PDOException $e) {
             $insertFlag += 1;
         }
     endif;
 
     // Validate file information and upload
-    if (!empty($_FILES['files']['name'])):
-        require_once 'src/functions/fncFiles.php';
-        require_once 'src/inc/incUpload.php';
+    if (!empty($_FILES['files']['name'][0])):
+        $folder = "TR";
+        require_once '../src/functions/fncFiles.php';
+        require_once '../src/inc/incUpload.php';
     endif;
 
 endif;
 
 // Display the correct message at the top of the form.
-if ($insertFlag === 0):
+if ($insertFlag == 0):
     $conn->commit();
 else:
     $conn->rollBack();
     $errorFlag = 2;
 endif;
-
-$conn->close();

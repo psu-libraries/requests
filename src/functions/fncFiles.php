@@ -1,7 +1,7 @@
 <?php
 
-function buildDirectory($requestId) {
-  $dir = "src/uploads/TR" . $requestId . "/";
+function buildDirectory($folder, $requestId) {
+  $dir = "src/uploads/" . $folder . $requestId . "/";
 
   // If the directory doesn't exist, create it
     if (!is_dir($dir)):

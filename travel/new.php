@@ -2,25 +2,13 @@
 
 session_start();
 
-$host = $_SERVER['HTTP_HOST'];
-$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-$extra = "view.php";
+$root = $_SERVER['DOCUMENT_ROOT'];
 
-//echo "host: " . $host . "<br>";
-//echo "uri: " . $uri . "<br>";
-//echo "extra: " . $extra . "<br>";
-//echo "url: " . $host.$uri.'/'.$extra;
+require_once $root . "/vendor/autoload.php";
+require_once $root . "/src/functions/fncUtility.php";
 
-$appName = "Travel Request";
-
-$arrTabs = [
-    0 => ['title' => 'Home', 'url' => '../index.php', 'class' => ''],
-    1 => ['title' => 'New Request', 'url' => 'new.php', 'class' => 'is-active'],
-    2 => ['title' => 'Request List', 'url' => 'requestList.php', 'class' => ''],
-    3 => ['title' => 'Search Results', 'url' => 'search.php', 'class' => '']
-  ];
-
-require_once 'pagelayout/templates/header.php';
+require_once "src/database/connection.php";
+//require_once "src/database/connect.php";
 
 require_once 'src/inc/incDefaultTravelClasses.php';
 require_once 'src/inc/incNewDefaults.php';
@@ -42,10 +30,10 @@ if (isset($_POST['submit'])) :
 
         if ($errorFlag === 0): // Default value set in validations.php
             // Script that inserts data into the database.
-//            require_once 'src/database/insertRequest.php';
+            require_once 'src/database/insertRequest.php';
 
             if ($errorFlag === 0):
-                header("Location: $host.$uri.'/view.php?id=$request_id'");
+                header("Location: view.php?id=" . $requestId . "&success=1");
                 exit;
             endif;
         endif;
@@ -53,6 +41,17 @@ if (isset($_POST['submit'])) :
     // Displays error and success messages
     include_once $root . '/src/inc/incErrorSuccessMessage.php';
 endif;
+
+$appName = "Travel Request";
+
+$arrTabs = [
+    0 => ['title' => 'Home', 'url' => '../index.php', 'class' => ''],
+    1 => ['title' => 'New Request', 'url' => 'new.php', 'class' => 'is-active'],
+    2 => ['title' => 'Request List', 'url' => 'requestList.php', 'class' => ''],
+    3 => ['title' => 'Search Results', 'url' => 'search.php', 'class' => '']
+  ];
+
+require_once 'pagelayout/templates/header.php';
 
 require_once 'pagelayout/forms/frmTravelRequest.php';
 

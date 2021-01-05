@@ -1,9 +1,8 @@
 <?php
 
-$requestId = 1; // Temporary variable. Remove once file is working and ready
-
 $arraySize = count($_FILES['files']['name']);
 $valNumberOfElements = numberBetween($arraySize, 1, 3);
+
 
 if ($valNumberOfElements === true):
 
@@ -14,7 +13,7 @@ if ($valNumberOfElements === true):
     $typeOk = 0;
 
     // Build the name of the directory the files are to go into
-    $target_dir = buildDirectory($requestId);
+    $target_dir = buildDirectory($folder, $requestId);
 
     // Take the information for the files to be uploaded and rearrange them
     // so that they are grouped together
@@ -36,13 +35,16 @@ if ($valNumberOfElements === true):
         $typeOk = checkMimeType($fileType);
 
         if ($existsOk === 1) {
-            array_push($errorMessage, "The file $fileName already exists.");
+            $errorFlag = 3;
+            $errorMessage = "The file $fileName already exists.";
         }
         if ($sizeOk === 1) {
-            array_push($errorMessage, "The size of the file is too large. Must be smaller than 500MB.");
+            $errorFlag = 3;
+            $errorMessage = "The size of $fileName is too large. Must be smaller than 500MB.";
         }
         if ($typeOk === 1) {
-            array_push($errorMessage, "The file type is not not accepted.");
+            $errorFlag = 3;
+            $errorMessage = "The file type of $fileName is not an accepted file type.";
         }
 
         // If any of the flag variables for the file upload come back with a
@@ -66,14 +68,13 @@ if ($valNumberOfElements === true):
             $fileError = $_FILES["files"]["error"];
 
             switch ($fileError) {
-                case 'UPLOAD_ERR_INI_SIZE':
-                    array_push($errorMessage, "$name exceeds the maximum size allowed.");
-                    break;
                 case 'UPLOAD_ERR_PARTIAL':
-                    array_push($errorMessage, "The file $name only partially uploaded.");
+                    $errorFlag = 3;
+                    $errorMessage = "The file $name only partially uploaded.";
                     break;
                 case 'UPLOAD_ERR_NO_FILE':
-                    array_push($errorMessage, "The file named $name was not uploaded");
+                    $errorFlag = 3;
+                    $errorMessage = "The file named $name was not uploaded";
                     break;
                 default:
                     # code...

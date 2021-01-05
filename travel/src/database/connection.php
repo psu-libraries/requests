@@ -1,8 +1,8 @@
 <?php
 
-DEFINE('DB_HOST', 'mysql');
-DEFINE('DB_USERNAME', 'request');
-DEFINE('DB_PASSWORD', 'request');
-DEFINE('DB_DATABASE', 'request');
+$host = 'mysql';
+$database = 'request';
+$username = 'request';
+$password = 'request';
 
 require "src/database/connect.php";

@@ -1,26 +1,16 @@
 <?php
 
-//session_start();
-
-//$appName = "Travel Request";
-
-//$arrTabs = [
-//    0 => ['title' => 'Home', 'url' => '../index.php', 'class' => ''],
-//    1 => ['title' => 'New Request', 'url' => 'new.php', 'class' => 'is-active'],
-//    2 => ['title' => 'Request List', 'url' => 'requestList.php', 'class' => ''],
-//    3 => ['title' => 'Search Results', 'url' => 'search.php', 'class' => '']
-//  ];
-
 // ************************ Approval Comments **************************
 
 $sql = "CREATE TABLE IF NOT EXISTS TrApprovalComments (
   comments_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   request_id int(11) NOT NULL,
+  commenter_id varchar(10) NOT NULL,
   comments text NOT NULL,
   date_entered varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === TRUE):
+if ($conn->query($sql)):
   echo "Table TrApprovalComments created successfully.";
 else:
   echo "Error creating TrApprovalComments: " . $conn->error . "<br>";
@@ -40,7 +30,7 @@ $sql = "CREATE TABLE IF NOT EXISTS TrApprovalWorkflows (
   date_entered varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === TRUE):
+if ($conn->query($sql)):
   echo "Table TrApprovalWorkflow created successfully.";
 else:
   echo "Error creating table TrApprovalWorkflows: " . $conn->error . "<br>";
@@ -67,7 +57,7 @@ $sql = "CREATE TABLE IF NOT EXISTS TrExpenses (
   date_last_updated VARCHAR(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === true):
+if ($conn->query($sql)):
   echo "Table TrExpenses created successfully.";
 else:
   echo "Error creating table TrExpenses: " . $conn->error . "<br>";
@@ -87,7 +77,7 @@ $sql= "CREATE TABLE IF NOT EXISTS TrFinancials (
   date_last_updated varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === true):
+if ($conn->query($sql)):
   echo "Table TrFinancials created successfully.";
 else:
   echo "Error creating TrFinancials: " . $conn->error . "<br>";
@@ -107,11 +97,11 @@ $sql = "CREATE TABLE IF NOT EXISTS TrFleet (
   dropoff_date varchar(10) DEFAULT NULL,
   dropoff_time varchar(10) DEFAULT NULL,
   carpooling varchar(500) DEFAULT NULL,
-  date_added varchar(10) NOT NULL,
+  date_entered varchar(10) NOT NULL,
   date_last_updated varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === true):
+if ($conn->query($sql)):
   echo "Table TrFleet created successfully.";
 else:
   echo "Error creating TrFleet table: " . $conn->error . "<br>";
@@ -141,7 +131,7 @@ $sql = "CREATE TABLE IF NOT EXISTS TrRequests (
   date_last_updated varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === true):
+if ($conn->query($sql)):
   echo "Table TrRequests created successfully.";
 else:
   echo "Error creating table TrRequests: " . $conn->error . "<br>";
@@ -161,7 +151,7 @@ $sql = "CREATE TABLE IF NOT EXISTS TrUploadedFiles (
   date_uploaded date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
-if ($conn->query($sql) === TRUE):
+if ($conn->query($sql)):
   echo "Table TrUploadedFiles created successfully.";
 else:
   echo "Error creating table TrUploadedFiles: " . $conn->error . "<br>";

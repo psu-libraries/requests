@@ -1,9 +1,5 @@
 <?php
 
-
-// Used to hold and display any error messages that occur.
-$errorMessage = [];
-
 if (!isset($_SESSION['devEmail'])):
       $_SESSION['devEmail'] = 'wse1@psu.edu';
 endif;

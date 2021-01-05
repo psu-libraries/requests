@@ -20,7 +20,8 @@ COPY bin/startup /usr/local/bin/
 # PHP extensions
 RUN docker-php-ext-install \
     mysqli \
-    zip
+    zip \
+    pdo_mysql
 
 COPY composer.json composer.lock /var/www/html/
 RUN chown -R app /var/www/html
