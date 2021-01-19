@@ -3,6 +3,7 @@
 include "src/database/dbTrRequests.php";
 include "src/database/dbTrGeneral.php";
 include "src/database/dbTrExpenses.php";
+include "src/database/dbTrUploadedFiles.php";
 include "src/database/dbTrFleet.php";
 include "src/database/dbTrFinancials.php";
 include "src/database/dbTrApprovalWorkflows.php";
@@ -17,24 +18,23 @@ if ((!isset($nextApprover)) || (isset($nextApprover) && length($nextApprover) ==
     $nextApprover = 'BusOff';
 endif;
 
-//$conn->beginTransaction();
 $arrRequest = [
+    "requestId" => $id,
     "travelType" => $travelType,
     "empName" => $empName,
     "accessId" => $accessId,
     "department" => $department,
     "submissionDate" => $now
 ];
-    $requestId = insertRequest($conn, $arrRequest);
-
+    $updateFlag = modifyRequest($conn, $arrRequest);
 
 // If there is a value other than 0 for the requestId, then continue with
 // inserting into the other tables.
-if ($requestId > 0):
+if ($updateFlag != 100):
 
-    // ********** GENERAL TABLE
+// ********** GENERAL TABLE
     $arrGeneral = [
-        "requestId" => $requestId,
+        "requestId" => $id,
         "destination" => $destination,
         "departureDate" => $departureDate,
         "departureTime" => $departureTime,
@@ -47,35 +47,35 @@ if ($requestId > 0):
         "dateEntered" => $now
     ];
 
-    $insertFlag = insertGeneral($conn, $arrGeneral);
+    $insertFlag = modifyGeneral($conn, $arrGeneral);
 
 // ********** EXPENSES TABLE
-if ($insertFlag != 100):
+    if ($updateFlag != 100):
 
-    $arrExpenses = [
-        "requestId" => $requestId,
-        "transportation" => $transportation,
-        "estMileage" => $estMileage,
-        "lodging" => $lodging,
-        "food" => $food,
-        "registration" => $registration,
-        "prepay" => $prepay,
-        "other" => $other,
-        "persTravel" => $persTravel,
-        "notes" => $expNotes,
-        "dateEntered" => $now
-    ];
+        $arrExpenses = [
+            "requestId" => $id,
+            "transportation" => $transportation,
+            "estMileage" => $estMileage,
+            "lodging" => $lodging,
+            "food" => $food,
+            "registration" => $registration,
+            "prepay" => $prepay,
+            "other" => $other,
+            "persTravel" => $persTravel,
+            "notes" => $expNotes,
+            "dateEntered" => $now
+        ];
 
-    $insertFlag = insertExpenses($conn, $arrExpenses);
-endif;
+        $updateFlag = modifyExpenses($conn, $arrExpenses);
 
+    endif;
 // ********** FLEET TABLE
     // If the length of the "fleet" variable is greater than 0, then
     // insert the data into the "fleet" table.
-    if ($insertFlag != 100):
+    if ($updateFlag != 100):
         if(length($fleet) > 0):
             $arrFleet = [
-                "requestId" => $requestId,
+                "requestId" => $id,
                 "vehicle" => $fleet,
                 "pickupDate" => $pickupDate,
                 "pickupTime" => $pickupTime,
@@ -85,33 +85,32 @@ endif;
                 "dateEntered" => $now
             ];
 
-            $insertFlag = insertFleet($conn, $arrFleet);
+            $updateFlag = modifyFleet($conn, $arrFleet);
         endif;
     endif;
+
 // ********** FINANCIALS TABLE
 
     // If the length of either "costType" or "costObjNumber" is greater
     // than 0, then insert the data into the "financials" table.
-    if ($insertFlag != 100):
+    if ($updateFlag != 100):
         if (length($costType) > 0 || length($costObjNumber) > 0):
 
             $arrFinancials = [
-                "requestId" => $requestId,
+                "requestId" => $id,
                 "costType" => $costType,
                 "costObjNumber" => $costObjNumber,
                 "dateEntered" => $now
             ];
 
-            $insertFlag = insertFinancials($conn, $arrFinancials);
+            $updateFlag = modifyFinancials($conn, $arrFinancials);
         endif;
-
     endif;
 
 // ********** APPROVAL WORKFLOW TABLE
     // Insert the data into the "approval_workflow" table.
 
-
-    if ($insertFlag != 100):
+    if ($updateFlag != 100):
 
         $arrWorkflows = [
             "requestId" => $requestId,
@@ -120,10 +119,9 @@ endif;
             "approvalStatus" => 'Pending',
             "dateEntered" => $now
         ];
-        $insertFlag = insertWorkflows($conn, $arrWorkflows);
+
+        $updateFlag = modifyWorkflow($conn, $arrWorkflows);
     endif;
-
-
 // ********** APPROVAL COMMENTS TABLE
 
     // If there are any comments added in the "APPROVALS" section of the
@@ -140,7 +138,6 @@ endif;
 
             $insertFlag = insertComments($conn, $arrComments);
         endif;
-
     endif;
 
     // Validate file information and upload
@@ -151,6 +148,7 @@ endif;
             require_once $root . '/src/inc/incUpload.php';
         endif;
     endif;
+
     // Display the correct message at the top of the form.
     if ($insertFlag == 100):
         $errorFlag = 2;
@@ -167,13 +165,4 @@ endif;
         deleteAllWorkflows($conn, $requestId);
         deleteAllComments($conn, $requestId);
     endif;
-
 endif;
-
-// Display the correct message at the top of the form.
-//if ($insertFlag == 0):
-//    $conn->commit();
-//else:
-//    $conn->rollBack();
-//    $errorFlag = 2;
-//endif;

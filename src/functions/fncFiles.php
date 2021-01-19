@@ -60,14 +60,22 @@ function checkMimeType($type) {
     if (!array_key_exists($type, $mimeTypes)) return 1;
 }
 
+function getFiles($requestId) {
 
-function uploadFiles($arrFiles, $dir) {
-    foreach ($_FILES["files"]["error"] as $key => $error):
-        if ($error == UPLOAD_ERR_OK):
-            $tmp_name = $_FILES["files"]["tmp_name"][$key];
+    $files = [];
 
-            $name = basename($_FILES["files"]["name"][$key]);
-            move_uploaded_file($tmp_name, $target_dir/$name);
+    $dir = $_SERVER['DOCUMENT_ROOT'] . '/src/uploads/TR' . $requestId;
+    $d = dir($dir);
+
+    $counter = 0;
+
+    while (($file = $d->read()) !== false):
+        if ($file !== '.' && $file !== '..'):
+            $files[$counter]['filename'] = $file;
+            $counter++;
         endif;
-    endforeach;
+    endwhile;
+
+        return $files;
+    
 }

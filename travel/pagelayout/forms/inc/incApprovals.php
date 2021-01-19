@@ -31,25 +31,34 @@
 
     <?php if ($_SERVER['PHP_SELF'] != '/travel/new.php'): ?>
         <div class="grid-container">
-            <div class="grid-x grid-padding-x">
-                <div class="cell">
+        <div class="grid-x grid-padding-y">
+        <div class="cell">
+          <div class="view">Previous Comments:</div>
+                    <ul class="no-bullet align-left bordered">
+            <?php
+              for ($a = 0; $a < count($prevComments); $a++):
+                if ($a % 2 == 0):
+                  $even = 'even';
+                else:
+                  $even = '';
+                endif;
+            ?>
+                <li class="<?php echo $even;?> view">
+                  <p>
+                    <?php echo $prevComments[$a]['comments']; ?>
+                  </p>
+                  <div class="cell text-right">
+                    <small>
+                      <?php 
+                        echo $prevComments[$a]['commenter_id'] . ' - ' 
+                          . fmtDisplayDate($prevComments[$a]['date_entered']);
+                      ?>
+                    </small>
+                  </div>
+                </li>
+            <?php endfor;?>
+          </ul>
 
-                    <p>Previous Comments:</p>
-                    <ul class="no-bullet">
-                        <?php
-  /*            for ($a = 0; $a < count($previousComments); $a++) :
-  if ($a % 2 == 0) :
-  $even = 'even';
-  else :
-  $even = '';
-  endif;
-  echo "<li class='{$even}'>{$previousComments[$a]}</li>";
-  endfor;
-  */
-                        ?>
-                    </ul>
-                </div>
-            </div>
         </div>
     <?php endif;?>
 

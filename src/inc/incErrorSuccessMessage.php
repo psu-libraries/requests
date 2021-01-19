@@ -2,15 +2,15 @@
     <div class="grid-x">
 
         <div class="medium-12 cell float-center">
-            <?php if ($errorFlag === 0) :
-            // Display the success message.
-            ?>
+        <?php if ($errorFlag === 0 && isset($_GET['success'])):?>
+
                 <div class="callout success">
                     <p class="text-center">
                         Your request has been successfully submitted.
                     </p>
                 </div>
-            <?php else: ?>
+        <?php elseif ($errorFlag > 0): ?>
+
                 <div class="callout alert">
                     <p class="text-center">
                         <?php

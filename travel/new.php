@@ -7,7 +7,7 @@ $root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root . "/vendor/autoload.php";
 require_once $root . "/src/functions/fncUtility.php";
 
-require_once "src/database/connection.php";
+//require_once "src/database/connection.php";
 //require_once "src/database/connect.php";
 
 require_once 'src/inc/incDefaultTravelClasses.php';
@@ -45,10 +45,12 @@ endif;
 $appName = "Travel Request";
 
 $arrTabs = [
-    0 => ['title' => 'Home', 'url' => '../index.php', 'class' => ''],
-    1 => ['title' => 'New Request', 'url' => 'new.php', 'class' => 'is-active'],
-    2 => ['title' => 'Request List', 'url' => 'requestList.php', 'class' => ''],
-    3 => ['title' => 'Search Results', 'url' => 'search.php', 'class' => '']
+    0 => ['title'=>'Home','url'=>'../index.php','class'=>''],
+    1 => ['title'=>'New Request','url'=>'new.php','class'=>'is-active'],
+    2 => ['title'=>'My Requests','url'=>'myRequests.php','class'=>''],
+    3 => ['title'=>'Search Requests (Approver)','url'=>'approverRequests.php','class'=>''],
+    4 => ['title'=>'Search Requests (Business)','url'=>'search.php','class'=>''],
+    5 => ['title'=>'Administration','url'=>'../admin/index.php','class'=>'']
   ];
 
 require_once 'pagelayout/templates/header.php';

@@ -143,4 +143,4 @@ $errorFlag += $arrApprover['errorFlag'];
 
 // Validate the Approvals comments.
  $arrComments = valNotes($comments, $arrClasses, $validator, $arrInvalid);
- $errorFlag += $arrComments['errrFlag'];
+ $errorFlag += $arrComments['errorFlag'];

@@ -1,12 +1,5 @@
 <?php
 
-function displayArray($arr)
-{
-    echo "<pre>";
-    var_dump($arr);
-    echo "</pre>";
-}
-
 /**
  * Custom function I created to check for the actual length of a string.
  *
@@ -160,7 +153,7 @@ function valAccessId($value, $classes, $v, $invalid, $required=false)
 
     if ($required === true && $valNotBlank === false) :
 
-        if ($valBlank === false) :
+        if ($valNotBlank === false) :
             $classes['errorMsg'] = $invalid['errorMsg']['required'];
             $errorFlag = 1;
         endif;
@@ -169,7 +162,7 @@ function valAccessId($value, $classes, $v, $invalid, $required=false)
         if ($valNotBlank === true) :
             $val = $v::alnum()->validate($value);
 
-            if ($value === false) :
+            if ($val === false) :
                 $classes['errorMsg'] = $invalid['errorMsg']['pattern'];
                 $errorFlag = 1;
             endif;
@@ -519,7 +512,7 @@ function valNumber($value, $classes, $v, $invalid)
         $val = $v::optional($v::intVal())->validate($value);
 
         if ($val === false) :
-            $classes['errorFlag'] = $errorFlag;
+            $classes['errorFlag'] = $invalid['errorFlag'];
             $classes['label'] .= $invalid['label'];
             $classes['input'] .= $invalid['label'];
             $classes['error'] .= $invalid['error'];

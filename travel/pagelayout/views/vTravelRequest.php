@@ -7,17 +7,17 @@
       enctype="multipart/form-data"
       novalidate>
 
-  <?php require_once 'pagelayout/forms/inc/incPersonalInfo.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewPersonalInfo.php'; ?>
 
-  <?php require_once 'pagelayout/forms/inc/incGeneralInformation.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewGeneralInformation.php'; ?>
 
-  <?php require_once 'pagelayout/forms/inc/incExpenses.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewExpenses.php'; ?>
 
-  <?php require_once 'pagelayout/forms/inc/incFleetReservation.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewFleetReservation.php'; ?>
 
-  <?php require_once 'pagelayout/forms/inc/incFinancials.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewFinancials.php'; ?>
 
-  <?php require_once 'pagelayout/forms/inc/incApprovals.php'; ?>
+    <?php require_once 'pagelayout/views/inc/incViewApprovals.php'; ?>
 
   <div class="grid-container">
     <div class="grid-x grid-padding-x">

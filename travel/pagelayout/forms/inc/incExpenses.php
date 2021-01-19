@@ -45,7 +45,7 @@
         <div class="medium-8 cell">
             <label>
                 <strong>Select file to upload</strong>
-                <input type="file" name="files[]" multiple>
+                <input type="file" name="files[]" multiple="multiple">
             </label>
         </div>
     </div>

@@ -12,7 +12,7 @@
     $travelTypeAdmin = '';
     $travelTypeProf = '';
     $empName = '';
-    $accessId = $_SESSION['user'];
+    $accessId = '';
     $department = '';
 
     // ***** GENERAL INFORMATION

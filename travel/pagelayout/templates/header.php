@@ -65,9 +65,19 @@ endif;
       </nav>
     </div>
 
+    <?php 
+      $mainClass = "grid-container l-main";
+
+      if ($_SERVER['PHP_SELF'] == '/travel/search.php'):
+        $mainClass = "grid-container s-main";
+      endif;
+    ?>
+
+
     <div role="document" class="page">
       <main role="main" id="main-content"
-            class="grid-container l-main" tabindex="0">
+      class="<?php echo $mainClass;?>" tabindex="0">
+
 <?php
 
 //        require_once $root . "/vendor/autoload.php";

@@ -61,8 +61,7 @@
                name="accessId"
                class="<?php echo $arrAccessId['input']; ?>"
                size="10"
-               value="<?php echo $accessId; ?>"
-               disabled>
+               value="<?php echo $accessId; ?>">
 
         <label class="<?php echo $arrAccessId['error']; ?>">
             <?php echo $arrAccessId['errorMsg'];?>

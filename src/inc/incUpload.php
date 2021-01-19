@@ -20,31 +20,39 @@ if ($valNumberOfElements === true):
     $arrFiles = rearrangeFilesArray($_FILES['files']);
 
     for ($a = 0; $a < $arraySize; $a++):
+
+        $fileFlag = 0;
+
         // Get the information required to run control checks. If they pass,
         // then the file can be uploaded into the system.
         $fileName = getFileName($arrFiles[$a]['name']);
-        $target_file = $target_dir . $fileName;
+        $targetFile = $target_dir . $fileName;
         $fileType = getFileType($fileName);
         $fileSize = $arrFiles[$a]['size'];
 
         // Check to see if the file exists, the size is under the maximum limit,
         // and the mime type is of an accepted type. Each of these will return
         // a value of one if the criteria is not met.
-        $existsOk = fileExists($fileName);
+//        $existsOk = fileExists($fileName);
+        $existsOk = fileExists($targetFile);
+
         $sizeOk = checkFileSize($fileSize);
         $typeOk = checkMimeType($fileType);
 
-        if ($existsOk === 1) {
-            $errorFlag = 3;
+        if ($existsOk == 1) {
+            $fileFlag = 100;
             $errorMessage = "The file $fileName already exists.";
+            break;
         }
         if ($sizeOk === 1) {
-            $errorFlag = 3;
+            $fileFlag = 100;
             $errorMessage = "The size of $fileName is too large. Must be smaller than 500MB.";
+            break;
         }
         if ($typeOk === 1) {
-            $errorFlag = 3;
+            $fileFlag = 100;
             $errorMessage = "The file type of $fileName is not an accepted file type.";
+            break;
         }
 
         // If any of the flag variables for the file upload come back with a
@@ -54,12 +62,16 @@ if ($valNumberOfElements === true):
             break;
         endif;
 
+        $tmpName = $_FILES["files"]["tmp_name"][$a];
+
+        move_uploaded_file($tmpName, $targetDir . '/' . $fileName);
+
     endfor;
 
-    if ($uploadOk === 0):
+/*    if ($uploadOk === 0):
         foreach ($_FILES["files"]["error"] as $key => $error):
             if ($error == UPLOAD_ERR_OK):
-                $tmp_name = $_FILES["files"]["tmp_name"][$key];
+                $tmpName = $_FILES["files"]["tmp_name"][$key];
 
                 $name = basename($_FILES["files"]["name"][$key]);
                 move_uploaded_file($tmp_name, $target_dir . $name);
@@ -83,4 +95,5 @@ if ($valNumberOfElements === true):
 
         endforeach;
     endif;
+*/
 endif;
