@@ -1,21 +1,59 @@
 <?php
+require_once 'config/config.php';
 
-session_start();
+include $dataBase . 'myQueries.php';
 
-$appName = "Travel Request";
-$arrAppStatus = [
-  "Pending", "Change", "Approved", "Rejected", "Closed"
-];
+$pending = getRequests($conn, $userId, "Pending");
+$changes = getRequests($conn, $userId, "Change");
+$approved = getRequests($conn, $userId, "Approved");
+$reviewed = getRequests($conn, $userId, "Reviewed");
+$rejected = getRequests($conn, $userId, "Rejected");
+$closed = getRequests($conn, $userId, "Closed");
 
-$arrTabs = [
-    0 => ['title'=>'Home','url'=>'../index.php','class'=>''],
-    1 => ['title'=>'New Request','url'=>'new.php','class'=>''],
-    2 => ['title'=>'My Requests','url'=>'myRequests.php','class'=>'is-active'],
-    3 => ['title'=>'Search Requests (Approver)','url'=>'approverRequests.php','class'=>''],
-    4 => ['title'=>'Search Requests (Business)','url'=>'search.php','class'=>''],
-    5 => ['title'=>'Administration','url'=>'../admin/index.php','class'=>'']
-  ];
+require_once 'pagelayout/templates/header.php';
+?>
 
-  require_once 'src/database/connection.php';
-  require_once 'pagelayout/templates/header.php'; 
-  include 'src/database/dbReports.php';
+<div class="grid-x">
+
+  <section class="medium-5 cell bordered">
+    <?php require_once $forms . 'frmSearch.php'; ?>
+  </section>
+
+  <section class="medium-19 cell">
+    <table class="responsive-card-table">
+      <?php include_once $templates . 'tmpSearchColumns.php';?>
+
+      <tbody>
+        <?php
+          if ($pending):
+            echo buildReportTable($pending, 'myView.php');
+          endif;
+
+          if ($changes):
+            echo buildReportTable($changes, 'myModify.php');
+          endif;
+
+          if ($approved):
+            echo buildReportTable($approved, 'myView.php');
+          endif;
+
+          if ($reviewed):
+            echo buildReportTable($reviewed, 'myView.php');
+          endif;
+
+          if ($rejected):
+            echo buildReportTable($rejected, 'myView.php');
+          endif;
+          
+          if ($closed):
+            echo buildReportTable($closed, 'myView.php');
+          endif;
+        ?>
+      </tbody>
+    </table>    
+  </section>
+
+</div>
+
+<?php 
+require_once 'pagelayout/templates/footer.php';

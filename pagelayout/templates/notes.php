@@ -1,4 +1,4 @@
-<div class="cell">
+<div class="cell ">
     <label class="<?php echo $arrNotes['label']; ?>">
         <?php echo $arrNotes['labelText'];?>
 

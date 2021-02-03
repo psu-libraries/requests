@@ -1,19 +1,3 @@
-<?php
-//session_start();
-
-if (!isset($_SESSION['devEmail'])):
-      $_SESSION['devEmail'] = 'wse1@psu.edu';
-endif;
-
-if (!isset($_SESSION['user']) && isset($_SERVER['REMOTE_USER'])):
-      $_SESSION['user'] = $_SESSION['REMOTE_USER'];
-elseif (!isset($_SESSION['user']) && !isset($_SESSION['REMOTE_USER'])): // For development only. Remove for production.
-      $_SESSION['user'] = 'wse1';
-endif;
-
-//$root = $_SERVER['DOCUMENT_ROOT'];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +22,7 @@ endif;
     <header>
       <div class="l-header">
         <header id="branding" role="banner">
-            <h1 class="site-name-title"><?php echo $appName; ?></h1>
+            <h1 class="site-name-title">Travel Request</h1>
         </header>
       </div>
     </header>
@@ -53,7 +37,10 @@ endif;
       <nav class="hover-underline-menu">
         <ul class="menu align-center">
 
-          <?php foreach ($arrTabs as $tkey => $tvalue) : ?>
+          <?php
+//            include_once 'src/includes/incTabsArray.php';
+           foreach ($arrTabs as $tkey => $tvalue) : 
+          ?>
             <li class="<?php echo $tvalue['class']; ?>">
               <a href="<?php echo $tvalue['url']; ?>">
                 <?php echo $tvalue['title']; ?>
@@ -65,23 +52,6 @@ endif;
       </nav>
     </div>
 
-    <?php 
-      $mainClass = "grid-container l-main";
-
-      if ($_SERVER['PHP_SELF'] == '/travel/search.php'):
-        $mainClass = "grid-container s-main";
-      endif;
-    ?>
-
-
     <div role="document" class="page">
       <main role="main" id="main-content"
       class="<?php echo $mainClass;?>" tabindex="0">
-
-<?php
-
-//        require_once $root . "/vendor/autoload.php";
-//        require_once $root . "/src/functions/fncUtility.php";
-
-//        require_once "src/database/connection.php";
-//        require_once "src/database/connect.php";

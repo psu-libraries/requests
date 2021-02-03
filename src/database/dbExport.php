@@ -38,8 +38,7 @@ try {
     workflow_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     request_id int(11) NOT NULL ,
     approver_id varchar(10) DEFAULT NULL,
-    next_approver_id varchar(10) NOT NULL DEFAULT 'BusOff',
-    approval_status varchar(25) NOT NULL,
+    next_approver_id varchar(10) DEFAULT NULL,
     date_entered varchar(10) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
@@ -60,19 +59,16 @@ unset($stmt);
 // ************************ Expenses **************************
 try {
   $sql = "CREATE TABLE IF NOT EXISTS TrExpenses (
-    expense_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    request_id INT(11) NOT NULL,
-    transportation DECIMAL(10,2) DEFAULT '0.00',
-    estimated_mileage INT(11) DEFAULT NULL,
-    lodging DECIMAL(10,2) DEFAULT '0.00',
-    food DECIMAL(10,2) DEFAULT '0.00',
-    registration DECIMAL(10,2) DEFAULT '0.00',
+    request_id INT(11) NOT NULL PRIMARY KEY,
+    transportation varchar(10) DEFAULT '0.00',
+    estimated_mileage VARCHAR(5),
+    lodging VARCHAR(10) DEFAULT '0.00',
+    food VARCHAR(10) DEFAULT '0.00',
+    registration VARCHAR(10) DEFAULT '0.00',
     prepay_registration VARCHAR(3) NOT NULL DEFAULT 'No',
-    other DECIMAL(10,2) DEFAULT '0.00',
+    other VARCHAR(10) DEFAULT '0.00',
     personal_travel VARCHAR(3) NOT NULL DEFAULT 'No',
-    notes TEXT,
-    date_entered VARCHAR(10) NOT NULL,
-    date_last_updated VARCHAR(10) DEFAULT NULL
+    notes TEXT
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
   $stmt = $conn->query($sql);
@@ -92,12 +88,9 @@ unset($stmt);
 // ************************ Financials **************************
 try {
   $sql= "CREATE TABLE IF NOT EXISTS TrFinancials (
-    financials_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    request_id int(11) NOT NULL,
+    request_id int(11) NOT NULL PRIMARY KEY,
     cost_type varchar(15) DEFAULT NULL,
-    cost_object_number varchar(12) DEFAULT NULL,
-    date_entered varchar(10) NOT NULL,
-    date_last_updated varchar(10) DEFAULT NULL
+    cost_object_number varchar(12) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
   $stmt = $conn->query($sql);
@@ -117,16 +110,13 @@ unset($stmt);
 // ************************ Fleet **************************
 try {
   $sql = "CREATE TABLE IF NOT EXISTS TrFleet (
-    fleet_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    request_id int(11) NOT NULL,
+    request_id int(11) NOT NULL PRIMARY KEY,
     vehicle varchar(50) DEFAULT NULL,
     pickup_date varchar(10) DEFAULT NULL,
     pickup_time varchar(10) DEFAULT NULL,
     dropoff_date varchar(10) DEFAULT NULL,
     dropoff_time varchar(10) DEFAULT NULL,
-    carpooling varchar(500) DEFAULT NULL,
-    date_entered varchar(10) NOT NULL,
-    date_last_updated varchar(10) DEFAULT NULL
+    carpooling varchar(500) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
   $stmt = $conn->query($sql);
@@ -145,8 +135,7 @@ unset($stmt);
 
 try {
    $sql = "CREATE TABLE IF NOT EXISTS TrGeneral (
-     general_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-     request_id int(11) NOT NULL,
+    request_id int(11) NOT NULL PRIMARY KEY,
     destination varchar(100) NOT NULL,
     departure_date varchar(10) NOT NULL,
     departure_time varchar(10) NOT NULL,
@@ -155,9 +144,7 @@ try {
     conference varchar(200) NOT NULL,
     sponsor varchar(200) NOT NULL,
     member varchar(3) NOT NULL,
-    notes text,
-    date_entered varchar(10) NOT NULL,
-    date_last_updated varchar(10) DEFAULT NULL
+    notes text
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
     $stmt = $conn->query($sql);
@@ -183,7 +170,9 @@ try {
     requestor_name varchar(50) NOT NULL,
     access_id varchar(10) NOT NULL,
     department varchar(250) NOT NULL,
-    submission_date varchar(10) NOT NULL,    
+    request_status varchar(25) NOT NULL,
+    submission_date varchar(10) NOT NULL, 
+    submitter_id varchar(10) NOT NULL,   
     date_last_updated varchar(10) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
@@ -207,7 +196,9 @@ unset($stmt);
 try {
   $sql = "CREATE TABLE IF NOT EXISTS permissions (
     userid varchar(10) NOT NULL PRIMARY KEY,
-    user_status varchar(10) NOT NULL DEFAULT 'Active'
+    user_status varchar(10) NOT NULL DEFAULT 'Active',
+    date_entered varchar(10) NOT NULL,    
+    date_last_updated varchar(10) DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
 
     $stmt = $conn->query($sql);

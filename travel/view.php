@@ -2,14 +2,20 @@
 
 session_start();
 
+$userId = $_SESSION['user'];
+
+include_once 'src/includes/incBuildPaths.php';
+include_once 'src/includes/incTableQueries.php';
+
+require_once $rootDb . 'connection.php';
+require_once $root . "vendor/autoload.php";
+require_once $defaults . 'incDefaultTravelClasses.php';
+
 $action = "view";
 
-$root = $_SERVER['DOCUMENT_ROOT'];
-
-include "src/database/connection.php";
-include $root . '/src/functions/fncUtility.php';
-include $root . '/src/functions/fncFormatter.php';
-include $root . '/src/functions/fncFiles.php';
+include $rootFunc . 'fncUtility.php';
+include $rootFunc . 'fncFormatter.php';
+include $rootFunc . 'fncFiles.php';
 
 if (isset($_GET['id']) && $_GET['id'] >= 1):
   $id = $_GET['id'];
@@ -32,7 +38,6 @@ $arrTabs = [
     5 => ['title' => 'Administration', 'url' => '../admin/index.php', 'class'=>'']
   ];
 
-  require_once 'src/inc/incDefaultTravelClasses.php';
   require 'src/inc/incRequestDefaults.php';
  
   require_once 'pagelayout/templates/header.php'; 

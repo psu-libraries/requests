@@ -6,26 +6,26 @@
       <div class="medium-9 cell view">
         <label>Vehicle</label>
         <div class="view bordered">
-          <?php echo $fleet['vehicle'];?>
+          <?php echo $fleet;?>
         </div>
       </div>
 
       <div class="hide-for-small-only medium-1 cell">&nbsp;</div>
 
       <div class="medium-3 cell view">
-      <?php if (length($fleet['pickup_date']) > 0): ?>
+      <?php if (length($pickupDate) > 0): ?>
         <label>Pick-up Date:</label>
         <div class="view text-center bordered">
-          <?php echo fmtDisplayDate($fleet['pickup_date']);?>
+          <?php echo fmtDisplayDate($pickupDate);?>
         </div>
         <?php endif; ?>
       </div>
 
       <div class="medium-3 cell view">
-      <?php if (length($fleet['pickup_time']) > 0): ?>
+      <?php if (length($pickupTime) > 0): ?>
         <label>Pick-up Time</label>
         <div class="view text-center bordered">
-          <?php echo fmtDisplayTime($fleet['pickup_time']);?>
+          <?php echo fmtDisplayTime($pickupTime);?>
         </div>
         <?php endif; ?>
       </div>
@@ -33,20 +33,19 @@
       <div class="hide-for-small-only medium-1 cell">&nbsp;</div>
 
       <div class="medium-3 cell view">
-      <?php if (length($fleet['dropoff_date']) > 0): ?>
+      <?php if (length($dropoffDate) > 0): ?>
         <label>Return Date:</label>
         <div class="view text-center bordered">
-          <?php echo fmtDisplayDate($fleet['dropoff_date']);?>
+          <?php echo fmtDisplayDate($dropoffDate);?>
         </div>
         <?php endif; ?>
       </div>
 
       <div class="medium-3 cell view">
-      <?php if (length($fleet['dropoff_time']) > 0): ?>
+      <?php if (length($dropoffTime) > 0): ?>
         <label>Return Time</label>
         <div class="view text-center bordered">
-          <?php echo fmtDisplayTime($fleet['dropoff_time']);?>
-        </div>
+          <?php echo fmtDisplayTime($dropoffTime);?>        </div>
         <?php endif; ?>
       </div>
     </div>
@@ -57,7 +56,7 @@
       <div class="cell view">
         <label>Carpooling? List other employees</label>
         <div class="view bordered">
-          <?php echo $fleet['carpooling'];?>
+          <?php echo $carpool;?>
         </div>        
       </div>
 

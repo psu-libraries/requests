@@ -17,48 +17,43 @@
 
     <?php require_once 'pagelayout/views/inc/incViewFinancials.php'; ?>
 
-    <?php require_once 'pagelayout/views/inc/incViewApprovals.php'; ?>
+    <?php 
+      if (isset($approvalStatus) && $approvalStatus == 'Approved'):
+        require_once 'pagelayout/forms/inc/incApprovals.php';
+      else:
+        require_once 'pagelayout/views/inc/incViewApprovals.php';
+      endif;
+    ?>
 
+
+ <?php if ($_SERVER['PHP_SELF'] == '/travel/boReview.php'): ?>
   <div class="grid-container">
     <div class="grid-x grid-padding-x">
+      <div class="hide-for-small-only medium-8 cell">&nbsp;</div>
 
-    <?php if ($_SERVER['PHP_SELF'] == '/travel/new.php') : ?>
-        <div class="hide-for-small-only medium-auto cell">&nbsp;</div>
+      <?php if (isset($approvalStatus) && $approvalStatus == 'Approved'):?>
+        <div class="medium-4 cell text-center">
 
-        <div class="medium-4 cell">
           <input type="submit"
-                 name="submit"
-                 value="Submit Request"
-                 class="button round text-center">
+                name="reviewed"
+                value="Reviewed"
+                class="button rounded success">
         </div>
 
-        <div class="hide-for-small-only medium-auto cell">&nbsp;</div>
+        <div class="medium-4 cell text-center">
+      <?php else: ?>
+          <div class="medium-8 cell text-center">
+      <?php endif; ?>
 
-    <?php elseif ($_SERVER['PHP_SELF'] == '/travel/modify.php'): ?>
-      <div class="hide-for-small-only medium-6 cell">&nbsp;</div>
+          <button onclick="goBack()" class="button rounded warning">
+            Go Back
+          </button>
+        </div>
 
-      <div class="medium-4 cell">
-        <input type="submit"
-               name="accept"
-               value="Accept Request"
-               class="button rounded success">
+        <div class="hide-for-small-only medium-8 cell">&nbsp;</div>
+
       </div>
-
-      <div class="medium-4 cell">
-        <input type="submit"
-               name="change"
-               value="Request Change"
-               class="button rounded warning">
-      </div>
-
-      <div class="medium-2 cell">
-        <input type="submit" name="reject" value="Reject Request"
-               class="button rounded alert">
-      </div>
-
-      <div class="hide-for-small-only cell auto">&nbsp;</div>
-
-    <?php endif; ?>
     </div>
   </div>
+<?php endif; ?>
 </form>

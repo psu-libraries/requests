@@ -119,6 +119,11 @@ label {
     clear: both;
 }
 
+.view {
+    min-height: 2rem;
+    padding: 3px;
+}
+
 @media only screen and (min-width: 48.063em) {
     .page {
         margin-top: 35px;
