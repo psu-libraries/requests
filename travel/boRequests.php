@@ -7,7 +7,7 @@ $approved = getRequests($conn, 'Approved');
 $reviewed = getRequests($conn, 'Reviewed');
 $closed = getRequests($conn, 'Closed');
 
-require_once 'pagelayout/templates/header.php'; ?>
+require_once $templates . 'header.php'; ?>
 
 <div class="grid-x">
 
@@ -37,4 +37,4 @@ require_once 'pagelayout/templates/header.php'; ?>
 
 </div>
 
-<?php require_once 'pagelayout/templates/footer.php';
+<?php require_once $templates . 'footer.php';

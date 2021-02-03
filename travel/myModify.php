@@ -6,6 +6,7 @@ $errorFlag = 0;
 
 require_once $rootFunc . 'fncFiles.php';
 include_once $dataBase . 'myQueries.php';
+require_once $dataBase . 'commonQueries.php';
 require_once $includes . 'defaults/incDefaultTravelClasses.php';
 require_once $includes . 'defaults/incMyRequestDefaults.php';
 require_once $includes . 'incVehicleArray.php';
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) :
 endif;
 ?>
 
-<?php require_once 'pagelayout/templates/header.php'; ?>
+<?php require_once $templates . 'header.php'; ?>
 
   <input type="hidden" 
          name="id" 
@@ -43,4 +44,4 @@ endif;
 <?php 
     require_once $forms . 'frmTravelRequest.php';
    
-  require_once 'pagelayout/templates/footer.php';
+  require_once $templates . 'footer.php';

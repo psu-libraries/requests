@@ -1,178 +1,5 @@
 <?php
 
-function createGeneral($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrGeneral (request_id, destination, "
-            . "departure_date, departure_time, return_date, return_time, "
-            . "conference, sponsor, member, notes) "
-            . "VALUES (:requestid, :destination, :departuredate, "
-            . ":departuretime, :returndate, :returntime, :conference, "
-            . ":sponsor, :member, :notes) "
-            . "ON DUPLICATE KEY UPDATE "
-            . "destination = :destination, "
-            . "departure_date = :departuredate, "
-            . "departure_time = :departuretime, "
-            . "return_date = :returndate, "
-            . "return_time = :returntime, "
-            . "conference = :conference, "
-            . "sponsor = :sponsor, "
-            . "member = :member, "
-            . "notes = :notes ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':destination', $array['destination']);
-        $stmt->bindParam(':departuredate', $array['departureDate']);
-        $stmt->bindParam(':departuretime', $array['departureTime']);
-        $stmt->bindParam(':returndate', $array['returnDate']);
-        $stmt->bindParam(':returntime', $array['returnTime']);
-        $stmt->bindParam(':conference', $array['conference']);
-        $stmt->bindParam(':sponsor', $array['sponsor']);
-        $stmt->bindParam(':member', $array['member']);
-        $stmt->bindParam(':notes', $array['notes']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createExpenses($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrExpenses (request_id, transportation, "
-        . "estimated_mileage, lodging, food, registration, "
-        . "prepay_registration, other, personal_travel, notes) "
-        . "VALUES (:requestid, :transportation, :estmileage, :lodging, "
-        . ":food, :registration, :prepay, :other, :perstravel, "
-        . ":notes) "
-        . "ON DUPLICATE KEY UPDATE "
-        . "transportation = :transportation, "
-        . "estimated_mileage = :estmileage, "
-        . "lodging = :lodging, "
-        . "food = :food, "
-        . "registration = :registration, "
-        . "prepay_registration = :prepay, "
-        . "other = :other, "
-        . "personal_travel = :perstravel, "
-        . "notes = :notes ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':transportation', $array['transportation']);
-        $stmt->bindParam(':estmileage', $array['estMileage']);
-        $stmt->bindParam(':lodging', $array['lodging']);
-        $stmt->bindParam(':food', $array['food']);
-        $stmt->bindParam(':registration', $array['registration']);
-        $stmt->bindParam(':prepay', $array['prepay']);
-        $stmt->bindParam(':other', $array['other']);
-        $stmt->bindParam(':perstravel', $array['persTravel']);
-        $stmt->bindParam(':notes', $array['notes']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createFleet($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrFleet (request_id, vehicle, "
-            . "pickup_date, pickup_time, dropoff_date, "
-            . "dropoff_time, carpooling) "
-            . "VALUES (:requestid, :vehicle, :pickupdate, "
-            . ":pickuptime, :dropoffdate, :dropofftime, "
-            . ":carpool) "
-            . "ON DUPLICATE KEY UPDATE "
-            . "vehicle = :vehicle, "
-            . "pickup_date = :pickupdate, "
-            . "pickup_time = :pickuptime, "
-            . "dropoff_date = :dropoffdate, "
-            . "dropoff_time = :dropofftime, "
-            . "carpooling = :carpool ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':vehicle', $array['vehicle']);
-        $stmt->bindParam(':pickupdate', $array['pickupDate']);
-        $stmt->bindParam(':pickuptime', $array['pickupTime']);
-        $stmt->bindParam(':dropoffdate', $array['dropoffDate']);
-        $stmt->bindParam(':dropofftime', $array['dropoffTime']);
-        $stmt->bindParam(':carpool', $array['carpool']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createFinancial($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrFinancials (request_id, cost_type, "
-        . "cost_object_number) "
-        . "VALUES (:requestid, :costtype, :costobjnumber) "
-        . "ON DUPLICATE KEY UPDATE "
-        . "cost_type = :costtype, "
-        . "cost_object_number = :costobjnumber ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':costtype', $array['costType']);
-        $stmt->bindParam(':costobjnumber', $array['costObjNumber']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createWorkflow($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrApprovalWorkflows (request_id, "
-        . "next_approver_id, date_entered) "
-        . "VALUES (:requestid, :nextapprover, :dateentered )";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':nextapprover', $array['nextApprover']);
-        $stmt->bindParam(':dateentered', $array['dateEntered']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createComment($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrApprovalComments (request_id, "
-        . "commenter_id, comments, date_entered) "
-        . "VALUES (:requestid, :commenterid, :comments, "
-        . ":dateentered)";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':commenterid', $array['commenterId']);
-        $stmt->bindParam(':comments', $array['comments']);
-        $stmt->bindParam(':dateentered', $array['dateEntered']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
 function getRequestInfo($dsn, $requestId, $userId) {
     try {
         $sql = "SELECT r.travel_type, r.requestor_name , "
@@ -243,24 +70,6 @@ function getViewRequest($dsn, $requestId, $userId) {
     }
 }
 
-function getComments($dsn, $requestId) {
-    try {
-        $sql = "SELECT comments_id, commenter_id, comments, date_entered "
-        . "FROM TrApprovalComments "
-        . "WHERE request_id = :requestid";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $requestId);
-
-        $stmt->execute();
-        return $stmt->fetchAll();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-
 function modifyRequest($dsn, $array) {
     try {
         $sql = "UPDATE TrRequests "
@@ -309,32 +118,9 @@ function modifyWorkflow($dsn, $array) {
     }
 }
 
-/*function getViewRequest($dsn, $requestId, $userId) {
-    try {
-         $sql = "SELECT r.request_id, r.travel_type, r.requestor_name, "
-            . "r.access_id, r.department, r.request_status, r.submitter_id, "
-            . "r.submission_date "
-            . "FROM TrRequests r "
-            . "LEFT JOIN TrApprovalWorkflows w ON r.request_id = w.request_id "
-            . "WHERE r.request_id = :requestid "
-            . "AND w.approver_id = :userid ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $requestId);
-        $stmt->bindParam(':userid', $userId);
-
-        $stmt->execute();
-        return $stmt->fetch();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-*/
-
 function getPending($dsn, $userId) {
     try {
-         $sql = "SELECT r.request_id, r.requestor_name as name, r.access_id, "
+        $sql = "SELECT r.request_id, r.requestor_name as name, r.access_id, "
             . "r.request_status as status, r.submission_date, "
             . "g.conference "
             . "FROM TrRequests r "
@@ -349,16 +135,15 @@ function getPending($dsn, $userId) {
         $stmt->bindParam(':userid', $userId);
 
         $stmt->execute();
-
+        return $stmt->fetchAll();
     } catch (PDOException $e) {
         return 100;
     }
-        return $stmt->fetchAll();
 }
 
 function getChange($dsn, $userId) {
     try {
-         $sql = "SELECT r.request_id, r.requestor_name as name, r.access_id, "
+        $sql = "SELECT r.request_id, r.requestor_name as name, r.access_id, "
             . "r.request_status as status, r.submission_date, "
             . "g.conference, a.approver_id, a.next_approver_id "
             . "FROM TrRequests r "
@@ -372,14 +157,12 @@ function getChange($dsn, $userId) {
 
         $stmt->bindParam(':userid', $userId);
 
-        $stmt->execute();
-        
+        $stmt->execute();        
         return $stmt->fetchAll();
     } catch (PDOException $e) {
         return 100;
     }
 }
-
 
 function getApproved($dsn, $userId) {
     try {
@@ -393,14 +176,14 @@ function getApproved($dsn, $userId) {
         . "AND r.request_status IN ('Approved', 'Pending') "
         . "ORDER BY r.submission_date ASC";
 
-       $stmt = $dsn->prepare($sql);
+        $stmt = $dsn->prepare($sql);
 
-       $stmt->bindParam(':userid', $userId);
+        $stmt->bindParam(':userid', $userId);
 
-       $stmt->execute();
+        $stmt->execute();
         return $stmt->fetchAll();
    } catch (PDOException $e) {
-       return 100;
+        return 100;
    }
 }
 
@@ -415,16 +198,15 @@ function getRejected($dsn, $userId) {
             . "AND r.request_status = 'Rejected' "
             . "ORDER BY r.request_id ASC ";
 
-       $stmt = $dsn->prepare($sql);
+        $stmt = $dsn->prepare($sql);
 
-       $stmt->bindParam(':userid', $userId);
+        $stmt->bindParam(':userid', $userId);
 
-       $stmt->execute();
-       
-       return $stmt->fetchAll();
-   } catch (PDOException $e) {
-       return 100;
-   }
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        return 100;
+    }
 }
 
 function getReviewed($dsn, $userId) {
@@ -438,16 +220,15 @@ function getReviewed($dsn, $userId) {
             . "AND r.request_status = 'Reviewed' "
             . "ORDER BY r.submission_date ASC";
 
-       $stmt = $dsn->prepare($sql);
+        $stmt = $dsn->prepare($sql);
 
-       $stmt->bindParam(':userid', $userId);
+        $stmt->bindParam(':userid', $userId);
 
-       $stmt->execute();
-       
-       return $stmt->fetchAll();
-   } catch (PDOException $e) {
-       return 100;
-   }
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        return 100;
+    }
 }
 
 function getClosed($dsn, $userId) {
@@ -461,34 +242,32 @@ function getClosed($dsn, $userId) {
             . "AND r.request_status = 'Closed' "
             . "ORDER BY r.submission_date ASC";
 
-       $stmt = $dsn->prepare($sql);
+        $stmt = $dsn->prepare($sql);
 
-       $stmt->bindParam(':userid', $userId);
+        $stmt->bindParam(':userid', $userId);
 
-       $stmt->execute();
-       
-       return $stmt->fetchAll();
-   } catch (PDOException $e) {
-       return 100;
-   }
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        return 100;
+    }
 }
 
 function getWorkflowIdForModify($dsn, $requestId, $userId) {
     try {
-         $sql = "SELECT w.workflow_id "
+        $sql = "SELECT w.workflow_id "
             . "FROM TrApprovalWorkflows w "
             . "LEFT JOIN TrRequests r ON w.request_id = r.request_id "
             . "WHERE r.request_id = :requestid "
             . "AND a.next_approver_id = :userid ";
         
-            $stmt = $dsn->prepare($sql);
+        $stmt = $dsn->prepare($sql);
 
-            $stmt->bindParam(':requestid', $requestId);
-            $stmt->bindParam(':userid', $userId);
+        $stmt->bindParam(':requestid', $requestId);
+        $stmt->bindParam(':userid', $userId);
 
-            $stmt->execute();
-
-            return $stmt->fetch();
+        $stmt->execute();
+        return $stmt->fetch();
     } catch (PDOException $e) {
         return 100;
     }

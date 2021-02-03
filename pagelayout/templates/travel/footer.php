@@ -6,7 +6,7 @@
 <script src="../pagelayout/js/vendor/foundation.min.js"></script>
 <script src="../pagelayout/js/vendor/what-input.js"></script>
 <script src="../pagelayout/js/app.js"></script>
-<script src="pagelayout/js/app.js"></script>
+<script src="../pagelayout/js/travel/app.js"></script>
 
 <script>
 $(document).foundation();

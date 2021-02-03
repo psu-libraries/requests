@@ -35,7 +35,6 @@ if ($requestId > 0):
         "notes" => $gINotes
     ];
 
-//    $insertFlag = createGeneral($conn, $arrGeneral);
     $insertFlag = createGeneral($conn, $arrGeneral);
 
     // ********** EXPENSES TABLE
@@ -69,7 +68,7 @@ if ($requestId > 0):
                 "pickupTime" => $pickupTime,
                 "dropoffDate" => $dropoffDate,
                 "dropoffTime" => $dropoffTime,
-                "carpool" => $carpool
+                "carpooling" => $carpool
             ];
             $insertFlag = createFleet($conn, $arrFleet);
         endif;

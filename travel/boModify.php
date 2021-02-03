@@ -5,6 +5,7 @@ $errorFlag = 0;
 
 require_once $rootFunc . 'fncFiles.php';
 require_once $dataBase . 'boQueries.php';
+require_once $dataBase . 'commonQueries.php';
 require_once $defaults . 'incDefaultTravelClasses.php';
 require_once $defaults . 'incBoRequestDefaults.php';
 
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) :
     endif;
 endif;
 
-require_once 'pagelayout/templates/header.php'; 
+require_once $templates . 'header.php'; 
 ?>
 
   <input type="hidden" 
@@ -38,4 +39,4 @@ require_once 'pagelayout/templates/header.php';
 
   <?php require_once $forms . 'frmTravelRequest.php';
 
-require_once 'pagelayout/templates/footer.php';
+require_once $templates . 'footer.php';

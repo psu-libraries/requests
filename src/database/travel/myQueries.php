@@ -1,6 +1,6 @@
 <?php
 
-function createRequest($dsn, $array) {
+function createRequest($dsn, $params) {
     try {
         $sql = "INSERT INTO TrRequests (travel_type, requestor_name, "
             . "access_id, department, request_status, submitter_id, "
@@ -10,12 +10,12 @@ function createRequest($dsn, $array) {
 
         $stmt = $dsn->prepare($sql);
 
-        $stmt->bindParam(':traveltype', $array['travelType']);
-        $stmt->bindParam(':requestorname', $array['empName']);
-        $stmt->bindParam(':accessid', $array['accessId']);
-        $stmt->bindParam(':department', $array['department']);
-        $stmt->bindParam(':submitterid', $array['submitterId']);
-        $stmt->bindParam(':submissiondate', $array['submissionDate']);
+        $stmt->bindParam(':traveltype', $params['travelType']);
+        $stmt->bindParam(':requestorname', $params['empName']);
+        $stmt->bindParam(':accessid', $params['accessId']);
+        $stmt->bindParam(':department', $params['department']);
+        $stmt->bindParam(':submitterid', $params['submitterId']);
+        $stmt->bindParam(':submissiondate', $params['submissionDate']);
 
         $stmt->execute();
         return $dsn->lastInsertId();
@@ -24,180 +24,7 @@ function createRequest($dsn, $array) {
     }
 }
 
-function createGeneral($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrGeneral (request_id, destination, "
-            . "departure_date, departure_time, return_date, return_time, "
-            . "conference, sponsor, member, notes) "
-            . "VALUES (:requestid, :destination, :departuredate, "
-            . ":departuretime, :returndate, :returntime, :conference, "
-            . ":sponsor, :member, :notes) "
-            . "ON DUPLICATE KEY UPDATE "
-            . "destination = :destination, "
-            . "departure_date = :departuredate, "
-            . "departure_time = :departuretime, "
-            . "return_date = :returndate, "
-            . "return_time = :returntime, "
-            . "conference = :conference, "
-            . "sponsor = :sponsor, "
-            . "member = :member, "
-            . "notes = :notes ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':destination', $array['destination']);
-        $stmt->bindParam(':departuredate', $array['departureDate']);
-        $stmt->bindParam(':departuretime', $array['departureTime']);
-        $stmt->bindParam(':returndate', $array['returnDate']);
-        $stmt->bindParam(':returntime', $array['returnTime']);
-        $stmt->bindParam(':conference', $array['conference']);
-        $stmt->bindParam(':sponsor', $array['sponsor']);
-        $stmt->bindParam(':member', $array['member']);
-        $stmt->bindParam(':notes', $array['notes']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createExpenses($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrExpenses (request_id, transportation, "
-        . "estimated_mileage, lodging, food, registration, "
-        . "prepay_registration, other, personal_travel, notes) "
-        . "VALUES (:requestid, :transportation, :estmileage, :lodging, "
-        . ":food, :registration, :prepay, :other, :perstravel, "
-        . ":notes) "
-        . "ON DUPLICATE KEY UPDATE "
-        . "transportation = :transportation, "
-        . "estimated_mileage = :estmileage, "
-        . "lodging = :lodging, "
-        . "food = :food, "
-        . "registration = :registration, "
-        . "prepay_registration = :prepay, "
-        . "other = :other, "
-        . "personal_travel = :perstravel, "
-        . "notes = :notes ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':transportation', $array['transportation']);
-        $stmt->bindParam(':estmileage', $array['estMileage']);
-        $stmt->bindParam(':lodging', $array['lodging']);
-        $stmt->bindParam(':food', $array['food']);
-        $stmt->bindParam(':registration', $array['registration']);
-        $stmt->bindParam(':prepay', $array['prepay']);
-        $stmt->bindParam(':other', $array['other']);
-        $stmt->bindParam(':perstravel', $array['persTravel']);
-        $stmt->bindParam(':notes', $array['notes']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createFleet($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrFleet (request_id, vehicle, "
-            . "pickup_date, pickup_time, dropoff_date, "
-            . "dropoff_time, carpooling) "
-            . "VALUES (:requestid, :vehicle, :pickupdate, "
-            . ":pickuptime, :dropoffdate, :dropofftime, "
-            . ":carpool) "
-            . "ON DUPLICATE KEY UPDATE "
-            . "vehicle = :vehicle, "
-            . "pickup_date = :pickupdate, "
-            . "pickup_time = :pickuptime, "
-            . "dropoff_date = :dropoffdate, "
-            . "dropoff_time = :dropofftime, "
-            . "carpooling = :carpool ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':vehicle', $array['vehicle']);
-        $stmt->bindParam(':pickupdate', $array['pickupDate']);
-        $stmt->bindParam(':pickuptime', $array['pickupTime']);
-        $stmt->bindParam(':dropoffdate', $array['dropoffDate']);
-        $stmt->bindParam(':dropofftime', $array['dropoffTime']);
-        $stmt->bindParam(':carpool', $array['carpooling']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createFinancial($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrFinancials (request_id, cost_type, "
-        . "cost_object_number) "
-        . "VALUES (:requestid, :costtype, :costobjnumber) "
-        . "ON DUPLICATE KEY UPDATE "
-        . "cost_type = :costtype, "
-        . "cost_object_number = :costobjnumber ";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':costtype', $array['costType']);
-        $stmt->bindParam(':costobjnumber', $array['costObjNumber']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createWorkflow($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrApprovalWorkflows (request_id, "
-        . "next_approver_id, date_entered) "
-        . "VALUES (:requestid, :nextapprover, :dateentered )";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':nextapprover', $array['nextApprover']);
-        $stmt->bindParam(':dateentered', $array['dateEntered']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function createComment($dsn, $array) {
-    try {
-        $sql = "INSERT INTO TrApprovalComments (request_id, "
-        . "commenter_id, comments, date_entered) "
-        . "VALUES (:requestid, :commenterid, :comments, "
-        . ":dateentered)";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':commenterid', $array['commenterId']);
-        $stmt->bindParam(':comments', $array['comments']);
-        $stmt->bindParam(':dateentered', $array['dateEntered']);
-
-        $stmt->execute();
-        return $stmt->rowCount();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
-function modifyRequest($dsn, $array) {
+function modifyRequest($dsn, $params) {
     try {
         $sql = "UPDATE TrRequests "
         . "SET "
@@ -206,16 +33,18 @@ function modifyRequest($dsn, $array) {
         . "department = :department, "
         . "request_status = :requeststatus, "
         . "date_last_updated = :dateupdated "
-        . "WHERE request_id = :requestid";
+        . "WHERE request_id = :requestid "
+        . "AND submitter_id = :userid ";
 
         $stmt = $dsn->prepare($sql);
 
-        $stmt->bindParam(':requestid', $array['requestId']);
-        $stmt->bindParam(':traveltype', $array['travelType']);
-        $stmt->bindParam(':empname', $array['empName']);
-        $stmt->bindParam(':department', $array['department']);
-        $stmt->bindParam(':requeststatus', $array['requestStatus']);
-        $stmt->bindParam(':dateupdated', $array['dateUpdated']);
+        $stmt->bindParam(':requestid', $params['requestId']);
+        $stmt->bindParam(':traveltype', $params['travelType']);
+        $stmt->bindParam(':empname', $params['empName']);
+        $stmt->bindParam(':department', $params['department']);
+        $stmt->bindParam(':requeststatus', $params['requestStatus']);
+        $stmt->bindParam(':dateupdated', $params['dateUpdated']);
+        $stmt->bindParam(':userid', $params['userId']);
 
         $stmt->execute();
         return $stmt->rowCount();
@@ -224,7 +53,7 @@ function modifyRequest($dsn, $array) {
     }
 }
 
-function modifyWorkflow($dsn, $array) {
+function modifyWorkflow($dsn, $params) {
     try {
         $sql = "UPDATE TrApprovalWorkflows "
         . "SET "
@@ -233,8 +62,8 @@ function modifyWorkflow($dsn, $array) {
 
         $stmt = $dsn->prepare($sql);
 
-        $stmt->bindParam(':workflowid', $array['workflowId']);
-        $stmt->bindParam(':nextapproverid', $array['nextApprover']);
+        $stmt->bindParam(':workflowid', $params['workflowId']);
+        $stmt->bindParam(':nextapproverid', $params['nextApprover']);
 
         $stmt->execute();
         return $stmt->rowCount();
@@ -278,23 +107,6 @@ function getRequestInfo($dsn, $requestId, $userId) {
     }
 }
 
-function getComments($dsn, $requestId) {
-    try {
-        $sql = "SELECT comments_id, commenter_id, comments, date_entered "
-        . "FROM TrApprovalComments "
-        . "WHERE request_id = :requestid";
-
-        $stmt = $dsn->prepare($sql);
-
-        $stmt->bindParam(':requestid', $requestId);
-
-        $stmt->execute();
-        return $stmt->fetchAll();
-    } catch (PDOException $e) {
-        return 100;
-    }
-}
-
 function getRequests($dsn, $userId, $reqStatus) {
 
     $order = "ASC";
@@ -316,8 +128,7 @@ function getRequests($dsn, $userId, $reqStatus) {
        $stmt->bindParam(':userid', $userId);
        $stmt->bindParam(':reqstatus', $reqStatus);
 
-       $stmt->execute();
-       
+       $stmt->execute();       
        return $stmt->fetchAll();
    } catch (PDOException $e) {
        return 100;

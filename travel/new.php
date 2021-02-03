@@ -4,6 +4,7 @@ require_once 'config/config.php';
 require_once $defaults . 'incDefaultTravelClasses.php';
 require_once $defaults . 'incNewDefaults.php';
 require_once $dataBase . 'myQueries.php';
+require_once $dataBase . 'commonQueries.php';
 
 // Runs when the "submit" buttons is clicked
 if (isset($_POST['submit'])) :
@@ -21,8 +22,8 @@ if (isset($_POST['submit'])) :
     endif;
 endif;
 
-require_once 'pagelayout/templates/header.php';
+require_once $templates . 'header.php';
 
 require_once $forms . 'frmTravelRequest.php';
 
-require_once 'pagelayout/templates/footer.php';
+require_once $templates . 'footer.php';

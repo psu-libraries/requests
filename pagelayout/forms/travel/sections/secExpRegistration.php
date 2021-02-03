@@ -12,7 +12,7 @@ $arrExpense = [
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php';?>
+    <?php require $templates . 'expenses.php';?>
 
     <td class="medium-18 cell">
         <div class="prepayView">

@@ -13,7 +13,7 @@ $arrExpense = [
 
 <tr class="grid-x">
 
-    <?php require 'pagelayout/templates/expenses.php'; ?>
+    <?php require $templates . 'expenses.php'; ?>
 
     <td class="medium-18 cell">
         <a href="https://www.gsa.gov/travel/plan-book/per-diem-rates">

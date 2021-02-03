@@ -29,7 +29,7 @@
     ?>
 
 
- <?php if ($_SERVER['PHP_SELF'] == '/travel/boReview.php'): ?>
+ <?php if ($page == '/travel/boReview.php'): ?>
   <div class="grid-container">
     <div class="grid-x grid-padding-x">
       <div class="hide-for-small-only medium-8 cell">&nbsp;</div>

@@ -4,18 +4,18 @@ require_once 'config/config.php';
 $updateFlag = 0;
 $action = "view";
 
+include_once $rootFunc . 'fncFiles.php';
 require_once $dataBase . 'boQueries.php';
 require_once $defaults . 'incDefaultTravelClasses.php';
-require $defaults . 'incApproverRequestDefaults.php';
+require $defaults . 'incBoRequestDefaults.php';
 
-include $root . 'src/functions/fncFiles.php';
-
-  if (isset($_POST['reviewed'])):
+if (isset($_POST['reviewed'])):
     $appStatus = 'Reviewed';
+    
     // Sanitize all of the values in the $_POST array.
-    include_once $root . 'src/functions/fncSanitizer.php';
+    include_once $rootFunc . 'fncSanitizer.php';
     // Validate all of the values in the $_POST array.
-    include_once 'src/validations.php';
+    include_once $validations . 'validations.php';
 
 
     if (isset($_POST['nextApprover']) && length($_POST['nextApprover']) > 0):
@@ -26,7 +26,7 @@ include $root . 'src/functions/fncFiles.php';
             "dateEntered" => $now
         ];
 
-        $updateFlag = insertWorkflows($conn, $arrWorkflows);
+        $updateFlag = createWorkflow($conn, $arrWorkflows);
     endif;
 
     if ($updateFlag == 0):
@@ -38,22 +38,18 @@ include $root . 'src/functions/fncFiles.php';
                 "dateEntered" => $now
             ];
 
-            $updateFlag = insertComments($conn, $arrComments);
+            $updateFlag = createComment($conn, $arrComments);
         endif;
     endif;
 
     if ($updateFlag == 100):
         $errorFlag = 2;
     endif;
-  endif;
+endif;
 
-  require_once 'pagelayout/templates/header.php'; 
-
-// Displays error and success messages
-include_once $root . 'src/inc/incErrorSuccessMessage.php';
-
-require_once 'pagelayout/views/vTravelRequest.php';
-require_once 'pagelayout/templates/footer.php';
+require_once $templates . 'header.php'; 
+require_once $views . 'vTravelRequest.php';
+require_once $templates . 't/templates/footer.php';
 
 
 

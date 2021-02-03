@@ -11,7 +11,8 @@ $arrExpense = [
 ?>
 
 <tr class="grid-x">
-    <?php require 'pagelayout/templates/expenses.php'; ?>
+    <?php require $templates . 'expenses.php'; ?>
+
     <td class="medium-18 cell">
         To utilize TA credit card, please make reservation and have hotel
         send credit card authorization from to mjw4@psu.edu.

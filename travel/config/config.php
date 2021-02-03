@@ -58,6 +58,7 @@ $rootInc = $rootSrc . 'includes/';
 $rootVal = $rootSrc . 'validations/';
 $rootViews = $rootPage . 'views/';
 
+// Travel request specific
 $dataBase = $rootDb . 'travel/';
 $functions = $rootFunc . 'travel/';
 $includes = $rootInc . 'travel/';
@@ -69,8 +70,6 @@ $defaults = $includes . 'defaults/';
 $forms = $rootForms . 'travel/';
 $formInc = $forms . 'includes/';
 $formSec = $forms . 'sections/';
-
-$queries = $dataBase . 'tableQueries/';
 
 $templates = $rootTemps . 'travel/';
 

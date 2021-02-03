@@ -8,10 +8,10 @@ include_once $dataBase . 'myQueries.php';
 require_once $defaults . 'incDefaultTravelClasses.php';
 require_once $defaults . 'incMyRequestDefaults.php';
 
-require_once 'pagelayout/templates/header.php'; 
+require_once $templates . 'header.php'; 
 
 require_once $views . 'vTravelRequest.php';
-require_once 'pagelayout/templates/footer.php';
+require_once $templates . 'footer.php';
 
 
 

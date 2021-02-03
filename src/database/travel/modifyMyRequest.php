@@ -1,6 +1,5 @@
 <?php
 
-$now = date('m/d/Y');
 $errorMessage = [];
 $updateFlag = 0;
 
@@ -15,7 +14,8 @@ $arrRequest = [
     "accessId" => $accessId,
     "department" => $department,
     "requestStatus" => 'Pending',
-    "dateUpdated" => $now
+    "dateUpdated" => $now,
+    "userId" => $userId
 ];
 $updateFlag = modifyRequest($conn, $arrRequest);
 
